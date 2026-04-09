@@ -45,7 +45,8 @@ const navLinks = [
   { label: "Katalog", href: "/katalog" },
   { label: "Kustomisasi", href: "/kustomisasi" },
   { label: "Tentang Kami", href: "/tentang-kami" },
-  { label: "Kontak Kami", href: "/#kontak" },
+  // tombol kontak langsung nembak ke wa biar admin gercep 
+  { label: "Kontak Kami", href: "https://wa.me/6281234567890?text=Halo%20SnackByte!%20Saya%20mau%20tanya-tanya%20nih." },
 ];
 
 export default function Navbar() {
@@ -85,6 +86,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
+              {...(link.label === "Kontak Kami" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               style={{ color: '#cbd5e1', fontSize: '0.95rem', fontWeight: '500', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
               className="px-4 py-1.5 rounded-md hover:text-white hover:bg-[#00CFFF]/10 transition-colors whitespace-nowrap"
             >
@@ -152,6 +154,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link key={link.label} href={link.href}
               onClick={() => setMobileOpen(false)}
+              {...(link.label === "Kontak Kami" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="block px-3 py-2.5 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
               {link.label}
             </Link>

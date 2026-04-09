@@ -4,7 +4,7 @@
         "name": "Tahu Walik",
         "category": "Makanan",
         "price": 10000,
-        "image": "https://images.unsplash.com/photo-1541592106381-b31e9223c0ee?q=80&w=500",
+        "image": "/images/slide-1.png",
         "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam."
     },
     {
@@ -12,7 +12,7 @@
         "name": "Soda Gembira",
         "category": "Minuman",
         "price": 8000,
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf76589fd8?q=80&w=500",
+        "image": "/images/slide-3.png",
         "description": "Minuman soda segar dengan campuran susu yang menyegarkan, cocok menemani cemilan."
     }
 ]

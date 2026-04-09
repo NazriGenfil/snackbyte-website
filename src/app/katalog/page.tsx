@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useState } from "react";
 import { useCartStore, Product } from "@/store/useCartStore";
 import { useNotificationStore } from "@/store/useNotificationStore";
@@ -80,10 +82,13 @@ export default function KatalogPage() {
                         }}>
                             {/* Image Setup */}
                             <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                                <img
+                                {/* pake gambar lokal biar gak lemot loadingnya */}
+                                <Image
                                     src={product.image}
                                     alt={product.name}
-                                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                                    fill
+                                    style={{ objectFit: "cover" }}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                             </div>
 
