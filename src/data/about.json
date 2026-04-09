@@ -1,0 +1,66 @@
+{
+    "history": {
+        "title": "Sejarah Perjalanan Kami",
+        "content": "SnackByte dimulai dari sebuah mimpi sederhana - menghadirkan pengalaman ngemil yang lebih dari sekadar rasa. Kami percaya bahwa setiap gigitan harus menceritakan sebuah kisah...\n\nKini, SnackByte telah tumbuh menjadi brand snack favorit Gen-Z yang dipercaya oleh ribuan pelanggan.",
+        "images": [
+            "/images/team-1.jpg",
+            "/images/team-2.jpg"
+        ]
+    },
+    "values": [
+        {
+            "id": 1,
+            "title": "Tujuan Kami",
+            "desc": "Menjadi brand snack #1 pilihan Gen-Z di Indonesia.",
+            "color": "#F9A826",
+            "icon": "🎯"
+        },
+        {
+            "id": 2,
+            "title": "Passion",
+            "desc": "Kami mencintai apa yang kami lakukan dan selalu memberikan yang terbaik.",
+            "color": "#FF4D94",
+            "icon": "❤️"
+        },
+        {
+            "id": 3,
+            "title": "Komunitas",
+            "desc": "Membangun komunitas pecinta snack yang saling berbagi.",
+            "color": "#00CFFF",
+            "icon": "👥"
+        },
+        {
+            "id": 4,
+            "title": "Inovasi",
+            "desc": "Terus berinovasi mengikuti tren terkini untuk pelanggan.",
+            "color": "#FF7A30",
+            "icon": "🚀"
+        }
+    ],
+    "timeline": [
+        {
+            "year": "2023",
+            "title": "Awal Mula",
+            "desc": "SnackByte lahir dari dapur rumah dengan 3 varian produk pertama.",
+            "color": "#00CFFF"
+        },
+        {
+            "year": "2024",
+            "title": "Pertumbuhan Pesat",
+            "desc": "Mencapai 500+ pelanggan loyal dan meluncurkan 15 varian baru.",
+            "color": "#F9A826"
+        },
+        {
+            "year": "2025",
+            "title": "Ekspansi",
+            "desc": "Membuka sistem online ordering dan kustomisasi produk.",
+            "color": "#FF4D94"
+        },
+        {
+            "year": "2026",
+            "title": "Masa Depan",
+            "desc": "Target ekspansi ke seluruh Indonesia dan pasar internasional.",
+            "color": "#FF7A30"
+        }
+    ]
+}
