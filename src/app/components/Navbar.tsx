@@ -113,14 +113,14 @@ export default function Navbar() {
           </button>
 
           {/* taro angka keranjang di pojok biar gak tumpuk */}
-          <button id="nav-cart" aria-label="Keranjang belanja"
-            style={{ position: "relative" }}
+          <Link href="/keranjang" id="nav-cart" aria-label="Keranjang belanja"
+            style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}
             className="p-2 rounded-lg text-slate-400 hover:text-[#00CFFF] hover:bg-[#00CFFF]/10 transition-colors">
             <IconCart />
             <span aria-label={`${mounted ? cartCount : 0} item di keranjang`} style={{
               position: 'absolute', top: '-5px', right: '-5px', backgroundColor: '#F9A826', color: '#0D1117', borderRadius: '50%', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 'bold', border: '2px solid #0D1117'
             }}>{mounted ? cartCount : 0}</span>
-          </button>
+          </Link>
 
           {/* burger — handle menu buat HP */}
           <button

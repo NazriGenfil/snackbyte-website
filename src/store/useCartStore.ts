@@ -16,6 +16,7 @@ export interface CartItem extends Product {
 interface CartState {
     cart: CartItem[];
     addToCart: (product: Product) => void;
+    updateQuantity: (id: number, quantity: number) => void;
     removeFromCart: (id: number) => void;
     clearCart: () => void;
     getTotalPrice: () => number;
@@ -35,6 +36,9 @@ export const useCartStore = create<CartState>((set, get) => ({
         }
         return { cart: [...state.cart, { ...product, quantity: 1 }] };
     }),
+    updateQuantity: (id, quantity) => set((state) => ({
+        cart: state.cart.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item)
+    })),
     removeFromCart: (id) => set((state) => ({
         cart: state.cart.filter(item => item.id !== id)
     })),
