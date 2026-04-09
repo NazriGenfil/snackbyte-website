@@ -21,8 +21,11 @@ export default function NotificationToast() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-end",
-                paddingBottom: "20px"
+                paddingBottom: "20px",
+                // biar kontainer notif gak ngeblock navbar
+                pointerEvents: "none"
             }}
+            // biar parent bisa handle hover kalau anak-anaknya di hover (karna pointer-events auto di anak tetep tembus event bubble)
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -71,7 +74,9 @@ export default function NotificationToast() {
                                     gap: "12px",
                                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)",
                                     border: "1px solid #166534",
-                                    height: "68px"
+                                    height: "68px",
+                                    // tembusin sensor mouse ke bawah kalo gak kena kotak notif
+                                    pointerEvents: "auto"
                                 }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
