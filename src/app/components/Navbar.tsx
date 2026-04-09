@@ -4,7 +4,8 @@
 // tailwind cuma buat warna, hover, dan efek visual doang
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCartStore } from "@/store/useCartStore";
 
 const IconSearch = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -41,14 +42,23 @@ const IconBurger = ({ isOpen }: { isOpen: boolean }) => (
 
 const navLinks = [
   { label: "Home",         href: "/"            },
-  { label: "Katalog",      href: "#katalog"     },
-  { label: "Kustomisasi",  href: "#kustomisasi" },
-  { label: "Tentang Kami", href: "#tentang"     },
-  { label: "Kontak Kami",  href: "#kontak"      },
+  { label: "Katalog",      href: "/katalog"     },
+  { label: "Kustomisasi",  href: "/#kustomisasi" },
+  { label: "Tentang Kami", href: "/#tentang"     },
+  { label: "Kontak Kami",  href: "/#kontak"      },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const cartStore = useCartStore((state) => state.cart);
+  const [mounted, setMounted] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Mencegah hydration mismatch error di Next.js dengan useEffect
+  useEffect(() => {
+    setMounted(true);
+    setCartCount(cartStore.reduce((acc, item) => acc + item.quantity, 0));
+  }, [cartStore]);
 
   return (
     <header style={{ width: '100%', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #1e2a3a', backgroundColor: 'rgba(13, 17, 23, 0.9)', backdropFilter: 'blur(10px)', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -107,9 +117,9 @@ export default function Navbar() {
             style={{ position: "relative" }}
             className="p-2 rounded-lg text-slate-400 hover:text-[#00CFFF] hover:bg-[#00CFFF]/10 transition-colors">
             <IconCart />
-            <span aria-label="0 item di keranjang" style={{
+            <span aria-label={`${mounted ? cartCount : 0} item di keranjang`} style={{
               position: 'absolute', top: '-5px', right: '-5px', backgroundColor: '#F9A826', color: '#0D1117', borderRadius: '50%', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 'bold', border: '2px solid #0D1117'
-            }}>0</span>
+            }}>{mounted ? cartCount : 0}</span>
           </button>
 
           {/* burger — handle menu buat HP */}
