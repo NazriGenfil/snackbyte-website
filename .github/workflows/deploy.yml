@@ -2,7 +2,7 @@ name: SnackByte CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   lint:
