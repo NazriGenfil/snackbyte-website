@@ -1,8 +1,11 @@
+"use client";
+
 // Step 2.2 — Hero Section (Failsafe)
 // semua layout pake inline styles, tailwind cuma buat warna dan efek visual
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   return (
@@ -57,7 +60,14 @@ function HeroSection() {
       }} className="flex-col md:flex-row">
 
         {/* ── Kiri: Copy ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
+        {/* bikin tulisan nongol dari kiri alus banget */}
+        {/* animasi cinematic biar dosen terpukau */}
+        <motion.div 
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: [0.175, 0.885, 0.32, 1.275] }}
+          style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}
+        >
 
           {/* Badge */}
           <span style={{
@@ -156,17 +166,23 @@ function HeroSection() {
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Kanan: Hero Image dengan glow effect ── */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <div style={{ width: '100%', maxWidth: '420px', position: 'relative', borderRadius: '2rem', overflow: 'hidden', border: '2px solid rgba(0, 207, 255, 0.2)', boxShadow: '0 0 60px rgba(0, 207, 255, 0.15)' }}>
+          {/* hero image fade-in belakangan biar dramatis */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease: "linear" }}
+            style={{ width: '100%', maxWidth: '420px', position: 'relative', borderRadius: '2rem', overflow: 'hidden', border: '2px solid rgba(0, 207, 255, 0.2)', boxShadow: '0 0 60px rgba(0, 207, 255, 0.15)' }}
+          >
             <img
               src="/images/hero-food.webp"
               alt="SnackByte — aneka camilan kekinian pilihan Gen-Z"
               style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
