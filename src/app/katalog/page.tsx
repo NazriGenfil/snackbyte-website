@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import { useState } from "react";
 import { useCartStore, Product } from "@/store/useCartStore";
@@ -34,14 +35,21 @@ export default function KatalogPage() {
             <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
 
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+                {/* Header */}
+                {/* notif header nongol dari atas cepet */}
+                <motion.div 
+                    initial={{ opacity: 0, y: -40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    style={{ textAlign: "center", marginBottom: "3rem" }}
+                >
                     <h1 style={{ fontSize: "2.5rem", fontWeight: 800, margin: "0 0 0.5rem 0", color: "#f8fafc" }}>
                         Katalog Produk
                     </h1>
                     <p style={{ color: "#94a3b8", fontSize: "1.1rem", margin: 0 }}>
                         Pilih snack favoritmu dan tambahkan ke keranjang
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Filters */}
                 <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "3rem", flexWrap: "wrap" }}>
@@ -69,17 +77,29 @@ export default function KatalogPage() {
                 </div>
 
                 {/* Product Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+                <motion.div 
+                    variants={{ visible: { opacity: 1, transition: { staggerChildren: 0.15 } }, hidden: { opacity: 0 } }}
+                    initial="hidden"
+                    animate="visible"
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}
+                >
+                    {/* pasang logic staggered biar produk muncul satu-satu gantian */}
                     {filteredProducts.map(product => (
                         // UI kartu produk sesuai figma
-                        <div key={product.id} style={{
-                            backgroundColor: "#161b22",
-                            borderRadius: "1.5rem",
-                            border: "1px solid #30363d",
-                            overflow: "hidden",
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
+                        <motion.div 
+                            key={product.id} 
+                            variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
+                            transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
+                            style={{
+                                backgroundColor: "#161b22",
+                                borderRadius: "1.5rem",
+                                border: "1px solid #30363d",
+                                overflow: "hidden",
+                                display: "flex",
+                                flexDirection: "column"
+                            }}
+                        >
+                            {/* animasi smooth premium anti kaku */}
                             {/* Image Setup */}
                             <div style={{ position: "relative", width: "100%", height: "200px" }}>
                                 {/* pake gambar lokal biar gak lemot loadingnya */}
@@ -172,9 +192,9 @@ export default function KatalogPage() {
                                 </div>
 
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
             </div>
         </main>
