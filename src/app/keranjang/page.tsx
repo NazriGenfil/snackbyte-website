@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 
 export default function KeranjangPage() {
-    const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useCartStore();
+    const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice, selectedAddons, getTotalAddonPrice } = useCartStore();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -23,7 +23,16 @@ export default function KeranjangPage() {
         cart.forEach(item => {
             text += `- ${item.name} (${item.quantity}x) - Rp ${item.price * item.quantity}\n`;
         });
-        text += `\nTotal Pesanan: ${formatRupiah(getTotalPrice())}\nMohon diproses ya, terima kasih!`;
+        
+        if (selectedAddons.length > 0) {
+            text += `\n📍 Add-ons Tambahan:\n`;
+            selectedAddons.forEach(addon => {
+                text += `- ${addon.name} (${addon.quantity}x) - ${formatRupiah(addon.price * addon.quantity)}\n`;
+            });
+        }
+
+        const grandTotal = getTotalPrice() + getTotalAddonPrice();
+        text += `\nTotal Pesanan: ${formatRupiah(grandTotal)}\nMohon diproses ya, terima kasih!`;
         
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
     };
@@ -154,13 +163,20 @@ export default function KeranjangPage() {
                                 <span>Subtotal</span>
                                 <span style={{ color: "#f8fafc", fontWeight: 600 }}>{formatRupiah(getTotalPrice())}</span>
                             </div>
+                            
+                            {selectedAddons.length > 0 && (
+                                <div style={{ display: "flex", justifyContent: "space-between", color: "#94a3b8" }}>
+                                    <span>Add-ons Kustom</span>
+                                    <span style={{ color: "#f8fafc", fontWeight: 600 }}>{formatRupiah(getTotalAddonPrice())}</span>
+                                </div>
+                            )}
 
                             <div style={{ height: "1px", backgroundColor: "#30363d", width: "100%" }}></div>
 
                             {/* itung total biar bener harganya */}
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <span style={{ fontWeight: 600 }}>Total Harga</span>
-                                <span style={{ color: "#F9A826", fontSize: "1.5rem", fontWeight: 800 }}>{formatRupiah(getTotalPrice())}</span>
+                                <span style={{ color: "#F9A826", fontSize: "1.5rem", fontWeight: 800 }}>{formatRupiah(getTotalPrice() + getTotalAddonPrice())}</span>
                             </div>
 
                             <button 
