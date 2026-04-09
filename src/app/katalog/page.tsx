@@ -18,6 +18,13 @@ export default function KatalogPage() {
         return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(price);
     };
 
+    // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
+    const handleQuickBuy = (product: Product) => {
+        const phone = "6281234567890";
+        const text = `Halo SnackByte! Saya mau pesan ${product.name} langsung nih. Harganya ${formatRupiah(product.price)} kan? Mohon info pembayarannya ya!`;
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+    };
+
     return (
         <main style={{ minHeight: "100vh", padding: "80px 2rem", flex: 1, backgroundColor: "#0D1117" }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
@@ -108,8 +115,8 @@ export default function KatalogPage() {
 
                                     <div style={{ display: "flex", gap: "0.75rem" }}>
                                         <button 
-                                            // masukin ke zustand biar kesimpen pas pindah page
-                                            onClick={() => addToCart(product)}
+                                            // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
+                                            onClick={() => handleQuickBuy(product)}
                                             style={{
                                                 flex: 1,
                                                 backgroundColor: "#F9A826",
