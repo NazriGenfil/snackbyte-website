@@ -19,20 +19,22 @@ export default function KeranjangPage() {
     // gas ke whatsapp buat jualan
     const handleCheckout = () => {
         const phone = "6281234567890";
-        let text = "Halo SnackByte! Saya mau pesan:\n\n";
+        let text = "Halo SnackByte! Saya mau pesan:\n\nItems:\n";
         cart.forEach(item => {
-            text += `- ${item.name} (${item.quantity}x) - Rp ${item.price * item.quantity}\n`;
+            text += `- ${item.quantity}x ${item.name} (${formatRupiah(item.price * item.quantity)})\n`;
         });
         
         if (selectedAddons.length > 0) {
-            text += `\n📍 Add-ons Tambahan:\n`;
+            // masukin semua tambahan ke rangkuman WA
+            text += `\nTambahan (Kustomisasi):\n`;
             selectedAddons.forEach(addon => {
-                text += `- ${addon.name} (${addon.quantity}x) - ${formatRupiah(addon.price * addon.quantity)}\n`;
+                text += `- ${addon.quantity}x ${addon.name} (${formatRupiah(addon.price * addon.quantity)}\n`;
             });
         }
 
         const grandTotal = getTotalPrice() + getTotalAddonPrice();
-        text += `\nTotal Pesanan: ${formatRupiah(grandTotal)}\nMohon diproses ya, terima kasih!`;
+        // benerin itungan total biar gak rugi
+        text += `\nTOTAL AKHIR: ${formatRupiah(grandTotal)}\nMohon diproses ya, terima kasih!`;
         
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
     };
@@ -164,10 +166,21 @@ export default function KeranjangPage() {
                                 <span style={{ color: "#f8fafc", fontWeight: 600 }}>{formatRupiah(getTotalPrice())}</span>
                             </div>
                             
-                            {selectedAddons.length > 0 && (
+                            {/* tampilin detail tambahan biar user gak bingung */}
+                            {selectedAddons.length > 0 ? (
+                                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                                    <span style={{ color: "#94a3b8" }}>Add-ons Kustom:</span>
+                                    {selectedAddons.map(addon => (
+                                        <div key={addon.id} style={{ display: "flex", justifyContent: "space-between", color: "#64748b", fontSize: "0.9rem", paddingLeft: "1rem" }}>
+                                            <span>- {addon.name} ({addon.quantity}x)</span>
+                                            <span style={{ color: "#f8fafc", fontWeight: 500 }}>{formatRupiah(addon.price * addon.quantity)}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
                                 <div style={{ display: "flex", justifyContent: "space-between", color: "#94a3b8" }}>
                                     <span>Add-ons Kustom</span>
-                                    <span style={{ color: "#f8fafc", fontWeight: 600 }}>{formatRupiah(getTotalAddonPrice())}</span>
+                                    <span style={{ color: "#64748b", fontWeight: 500 }}>Tidak ada</span>
                                 </div>
                             )}
 
