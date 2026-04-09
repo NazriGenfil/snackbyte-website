@@ -41,11 +41,11 @@ const IconBurger = ({ isOpen }: { isOpen: boolean }) => (
 );
 
 const navLinks = [
-  { label: "Home",         href: "/"            },
-  { label: "Katalog",      href: "/katalog"     },
-  { label: "Kustomisasi",  href: "/#kustomisasi" },
-  { label: "Tentang Kami", href: "/#tentang"     },
-  { label: "Kontak Kami",  href: "/#kontak"      },
+  { label: "Home", href: "/" },
+  { label: "Katalog", href: "/katalog" },
+  { label: "Kustomisasi", href: "/kustomisasi" },
+  { label: "Tentang Kami", href: "/#tentang" },
+  { label: "Kontak Kami", href: "/#kontak" },
 ];
 
 export default function Navbar() {
