@@ -44,7 +44,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Katalog", href: "/katalog" },
   { label: "Kustomisasi", href: "/kustomisasi" },
-  { label: "Tentang Kami", href: "/tentang" },
+  { label: "Tentang Kami", href: "/tentang-kami" },
   { label: "Kontak Kami", href: "/#kontak" },
 ];
 
