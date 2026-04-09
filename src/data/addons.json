@@ -1,0 +1,22 @@
+[
+    {
+        "id": "addon-1",
+        "name": "Chilli Oil Extra",
+        "price": 5000
+    },
+    {
+        "id": "addon-2",
+        "name": "Saus Mayo",
+        "price": 3000
+    },
+    {
+        "id": "addon-3",
+        "name": "Ekstra Keju",
+        "price": 7000
+    },
+    {
+        "id": "addon-4",
+        "name": "Alat Makan (Sumpit/Sendok)",
+        "price": 2000
+    }
+]

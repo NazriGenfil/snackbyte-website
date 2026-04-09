@@ -3,12 +3,8 @@
 import { useCartStore } from "@/store/useCartStore";
 import { useNotificationStore } from "@/store/useNotificationStore";
 
-const ADDON_DATA = [
-    { id: "addon-chilli", name: "Chilli Oil Extra", price: 5000 },
-    { id: "addon-cheese", name: "Saus Keju Lumer", price: 7000 },
-    { id: "addon-kartu", name: "Kartu Ucapan Gift", price: 3000 },
-    { id: "addon-box", name: "Premium Gift Box", price: 15000 },
-];
+// tarik data dari json biar gak ribet
+import addonsData from "@/data/addons.json";
 
 export default function KustomisasiPage() {
     const { selectedAddons, updateAddonQuantity, getTotalAddonPrice } = useCartStore();
@@ -39,7 +35,8 @@ export default function KustomisasiPage() {
 
                 {/* Add-ons Grid */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginBottom: "3rem" }}>
-                    {ADDON_DATA.map(addon => {
+                    {/* mapping add-ons biar dinamis */}
+                    {addonsData.map(addon => {
                         const selectedInfo = selectedAddons.find(a => a.id === addon.id);
                         const qty = selectedInfo ? selectedInfo.quantity : 0;
 
