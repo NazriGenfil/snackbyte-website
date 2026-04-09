@@ -9,7 +9,8 @@ export default function NotificationToast() {
 
     if (notifications.length === 0) return null;
 
-    // biar notifnya numpuk estetik, pas di-hover langsung muncul semua
+    // notif numpuk estetik kaya figma
+    // mekar pas di-hover jadi list
     return (
         <div 
             style={{
@@ -21,17 +22,23 @@ export default function NotificationToast() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-end",
+                paddingBottom: "20px"
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div style={{ position: "relative", width: "100%", height: isHovered ? `${notifications.length * 68}px` : "60px", transition: "height 0.3s ease" }}>
+            <div style={{ position: "relative", width: "100%", height: isHovered ? `${notifications.length * 80}px` : "70px", transition: "height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}>
                 {notifications.map((notif, index) => {
                     const reversedIndex = notifications.length - 1 - index;
-                    const ty = isHovered ? reversedIndex * 68 : reversedIndex * 12;
+                    
+                    const ty = isHovered ? reversedIndex * 80 : reversedIndex * 16;
                     const scale = isHovered ? 1 : Math.max(1 - (reversedIndex * 0.05), 0.85);
                     const zIndex = 100 - reversedIndex;
-                    const opacity = (!isHovered && reversedIndex > 2) ? 0 : 1;
+                    const opacity = isHovered 
+                        ? 1 
+                        : reversedIndex > 3 
+                            ? 0
+                            : 1 - reversedIndex * 0.2;
 
                     return (
                         <div 
@@ -44,22 +51,30 @@ export default function NotificationToast() {
                                 transform: `translateY(${ty}px) scale(${scale})`,
                                 zIndex,
                                 opacity,
-                                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                                backgroundColor: "#064e3b",
+                                // animasi super smooth anti patah-patah
+                                transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                                backgroundColor: "#15803d",
                                 color: "white",
-                                padding: "16px",
+                                padding: "12px 16px",
                                 borderRadius: "0.75rem",
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "12px",
-                                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
-                                border: "1px solid #047857"
+                                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)",
+                                border: "1px solid #166534",
+                                height: "68px"
                             }}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                                <polyline points="20 6 9 17 4 12"></polyline>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
-                            <span style={{ fontSize: "0.95rem", fontWeight: 500 }}>{notif.message}</span>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                                <span style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.2 }}>Sukses!</span>
+                                <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "#dcfce3", lineHeight: 1.2 }}>
+                                    {notif.message}
+                                </span>
+                            </div>
                         </div>
                     );
                 })}

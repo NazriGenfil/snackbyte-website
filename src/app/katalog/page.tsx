@@ -138,7 +138,9 @@ export default function KatalogPage() {
                                             // tambah ke cart zustand dengan icon juga
                                             onClick={() => {
                                                 addToCart(product);
-                                                addNotification(`${product.name} ditambahkan ke keranjang!`);
+                                                addNotification(`${product.name} ditambahkan!`);
+                                                // trigger dua kali biar efek tumpuknya langsung kelihatan estetik
+                                                setTimeout(() => addNotification(`Jangan lupa checkout di keranjang ya!`), 100);
                                             }}
                                             style={{
                                                 backgroundColor: "#00CFFF",
