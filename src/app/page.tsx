@@ -1,116 +1,263 @@
-// Halaman utama — sementara cuma stub hero buat validasi Tailwind + brand theme
-// Nanti akan jadi product catalog grid
+// Step 2.2 — Hero Section (Failsafe)
+// semua layout pake inline styles, tailwind cuma buat warna dan efek visual
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+
+export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col">
-      {/* ── Navbar placeholder ── */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-cream-200 px-6 py-4 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-2">
-          {/* Logo dot warna brand biar langsung ketauan ini snackbyte */}
-          <span className="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">
-            S
-          </span>
-          <span className="font-extrabold text-xl text-text-primary tracking-tight">
-            Snack<span className="text-brand-500">Byte</span>
-          </span>
-        </div>
-
-        {/* Cart icon placeholder — akan jadi CartDrawer trigger nanti */}
-        <button
-          id="cart-btn-placeholder"
-          className="relative flex items-center gap-2 bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold px-4 py-2 rounded-full text-sm"
-          aria-label="Keranjang belanja"
-        >
-          🛒 Keranjang
-          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-500 text-white text-xs flex items-center justify-center">
-            0
-          </span>
-        </button>
-      </header>
-
-      {/* ── Hero Section ── */}
-      <section className="flex flex-1 flex-col items-center justify-center text-center px-6 py-24 bg-gradient-to-b from-brand-50 to-cream-50">
-        {/* Badge */}
-        <span className="inline-flex items-center gap-1.5 bg-brand-500/10 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
-          ✨ Camilan Pilihan Terbaik
-        </span>
-
-        <h1 className="text-5xl md:text-6xl font-extrabold text-text-primary leading-tight max-w-2xl mb-5">
-          Snack Kesukaanmu,{" "}
-          <span className="text-brand-500">Satu Klik</span> Jauhnya
-        </h1>
-
-        <p className="text-text-secondary text-lg max-w-lg mb-10 leading-relaxed">
-          Pilih camilanmu, tambah ke keranjang, dan pesan langsung via WhatsApp.
-          Gak ribet, gak pake lama.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            id="cta-shop-now"
-            href="#katalog"
-            className="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-brand-500/30 hover:shadow-brand-600/40 hover:-translate-y-0.5 transition-all"
-          >
-            Lihat Katalog →
-          </a>
-          <a
-            id="cta-learn-more"
-            href="#cara-pesan"
-            className="bg-white border border-cream-200 hover:border-brand-300 text-text-secondary hover:text-brand-700 font-semibold px-8 py-3.5 rounded-full transition-all"
-          >
-            Cara Pesan
-          </a>
-        </div>
-
-        {/* Floating pill stats — vibe premium dikit */}
-        <div className="mt-16 flex flex-wrap justify-center gap-4 text-sm">
-          {[
-            { icon: "🍿", label: "20+ Produk Pilihan" },
-            { icon: "⚡", label: "Order via WhatsApp" },
-            { icon: "❤️", label: "Dibuat dengan Cinta" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="flex items-center gap-2 bg-white border border-cream-200 text-text-secondary px-4 py-2 rounded-full shadow-sm"
-            >
-              <span>{item.icon}</span>
-              <span className="font-medium">{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Catalog section placeholder — akan diisi product cards nanti ── */}
-      <section
-        id="katalog"
-        className="px-6 py-20 max-w-7xl mx-auto w-full"
-      >
-        <h2 className="text-3xl font-extrabold text-text-primary mb-2">
-          Katalog Produk
-        </h2>
-        <p className="text-text-muted mb-10">
-          Product cards akan muncul di sini — coming next step!
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={i}
-              className="bg-white border border-cream-200 rounded-2xl p-4 animate-pulse"
-            >
-              <div className="w-full h-36 bg-cream-100 rounded-xl mb-3" />
-              <div className="h-4 bg-cream-100 rounded mb-2 w-3/4" />
-              <div className="h-3 bg-cream-100 rounded w-1/2" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Footer ── */}
-      <footer className="border-t border-cream-200 bg-white text-center text-text-muted text-sm py-6">
-        © {new Date().getFullYear()} SnackByte. Dibuat dengan 🧡 untuk tugas
-        kewirausahaan.
-      </footer>
+    <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <HeroSection />
+      <FeaturesSection />
+      <CTABanner />
     </main>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// HERO SECTION
+// ─────────────────────────────────────────────────────────
+function HeroSection() {
+  return (
+    <section style={{
+      position: "relative",
+      overflow: "hidden",
+      minHeight: "80vh",
+      display: "flex",
+      alignItems: "center",
+    }}>
+
+      {/* Ambient glow blobs — bikin vibes sci-fi dark mode */}
+      <div aria-hidden="true" style={{
+        position: "absolute", top: "-160px", left: "-160px",
+        width: "480px", height: "480px", borderRadius: "9999px",
+        background: "radial-gradient(circle, rgba(0,207,255,0.18) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+      <div aria-hidden="true" style={{
+        position: "absolute", bottom: 0, right: 0,
+        width: "420px", height: "420px", borderRadius: "9999px",
+        background: "radial-gradient(circle, rgba(255,45,120,0.12) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+
+      {/* ── Inner Container ── */}
+      {/* bagi 2 kolom biar teks kiri gambar kanan */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '4rem',
+        width: '100%',
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '80px 2rem',
+        position: 'relative',
+        zIndex: 1
+      }} className="flex-col md:flex-row">
+
+          {/* ── Kiri: Copy ── */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
+
+            {/* Badge */}
+            <span style={{
+              display: "inline-flex", width: "fit-content",
+              alignItems: "center", gap: "6px",
+              borderRadius: "9999px",
+              border: "1px solid rgba(0,207,255,0.3)",
+              backgroundColor: "rgba(0,207,255,0.08)",
+              padding: "4px 12px",
+              fontSize: "11px", fontWeight: 700,
+              color: "#00CFFF", letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}>
+              ✦ Camilan Kekinian Gen-Z
+            </span>
+
+            {/* Headline — split brand colors persis kayak desain */}
+            <h1 style={{
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontWeight: 800,
+              lineHeight: 1.15,
+              letterSpacing: "-0.02em",
+              margin: 0,
+            }}>
+              <span className="text-slate-50">Selamat Datang di </span>
+              <span className="text-[#00CFFF]">Snack</span>
+              <span className="text-[#F9A826]">Byte</span>
+            </h1>
+
+            {/* Subheadline */}
+            <p style={{
+              fontSize: "1.0625rem",
+              color: "#94a3b8",
+              lineHeight: 1.7,
+              maxWidth: "420px",
+              margin: 0,
+            }}>
+              Temukan camilan premium pilihanmu, tambah ke keranjang, dan pesan
+              langsung via{" "}
+              <span style={{ color: "#e2e8f0", fontWeight: 500 }}>WhatsApp</span>
+              {" "}— cepat, gampang, anti nunggu lama.
+            </p>
+
+            {/* CTA Buttons */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", paddingTop: "0.5rem" }}>
+
+              {/* Primary — solid cyan */}
+              <Link
+                id="hero-cta-katalog"
+                href="#katalog"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  backgroundColor: "#00CFFF", color: "#0D1117",
+                  fontWeight: 700, padding: "12px 24px",
+                  borderRadius: "9999px", textDecoration: "none",
+                  boxShadow: "0 4px 24px rgba(0,207,255,0.3)",
+                  transition: "all 0.18s ease",
+                }}
+                className="hover:brightness-110 hover:-translate-y-0.5"
+              >
+                Lihat Katalog
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+
+              {/* Secondary — gradient border pink */}
+              <Link
+                id="hero-cta-tentang"
+                href="#tentang"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  fontWeight: 600, padding: "12px 24px",
+                  borderRadius: "9999px", textDecoration: "none",
+                  color: "#f472b6",
+                  background: "linear-gradient(#0D1117, #0D1117) padding-box, linear-gradient(135deg, #FF2D78, #f472b6) border-box",
+                  border: "1.5px solid transparent",
+                  transition: "color 0.18s ease",
+                }}
+                className="hover:text-white"
+              >
+                Tentang Kami
+              </Link>
+            </div>
+
+            {/* Stats pills kecil */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", paddingTop: "0.5rem" }}>
+              {[
+                { label: "20+ Produk",       color: "#00CFFF" },
+                { label: "Order via WA",      color: "#F9A826" },
+                { label: "Harga Terjangkau",  color: "#f472b6" },
+              ].map(({ label, color }) => (
+                <span key={label} style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.875rem", fontWeight: 500, color }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "9999px", backgroundColor: "currentColor", opacity: 0.7, display: "inline-block" }} />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Kanan: Hero Image dengan glow effect ── */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ width: '100%', maxWidth: '420px', position: 'relative', borderRadius: '2rem', overflow: 'hidden', border: '2px solid rgba(0, 207, 255, 0.2)', boxShadow: '0 0 60px rgba(0, 207, 255, 0.15)' }}>
+              <img
+                src="/images/hero-food.png"
+                alt="SnackByte — aneka camilan kekinian pilihan Gen-Z"
+                style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// FEATURES SECTION
+// ─────────────────────────────────────────────────────────
+function FeaturesSection() {
+  const features = [
+    {
+      id: "feat-snack",
+      icon: "🍿",
+      title: "Snack Kekinian",
+      description: "Koleksi camilan terkurasi yang selalu update mengikuti tren. Dari lokal hits sampai imported favorites.",
+      borderColor: "#F9A826", // Amber
+    },
+    {
+      id: "feat-kustom",
+      icon: "✨",
+      title: "Kustomisasi",
+      description: "Mau bikin hamper snack custom? Pilih sendiri isiannya, bungkusnya, dan pesannya. Cocok buat hadiah!",
+      borderColor: "#FF2D78", // Pink
+    },
+    {
+      id: "feat-order",
+      icon: "📱",
+      title: "Pesan Online",
+      description: "Checkout langsung via WhatsApp — gak perlu daftar, gak perlu masukin kartu kredit. Semudah itu.",
+      borderColor: "#00CFFF", // Cyan
+    },
+  ];
+
+  return (
+    <section id="tentang" style={{ padding: '80px 2rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 800, margin: "0 0 1rem 0" }}>
+          <span className="text-slate-50">Mengapa Memilih </span>
+          <span className="text-[#00CFFF]">Snack</span>
+          <span className="text-[#F9A826]">Byte</span>
+          <span className="text-slate-50">?</span>
+        </h2>
+        <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "500px", margin: "0 auto" }}>
+          Kami menyediakan snack berkualitas dengan harga terjangkau dan pelayanan terbaik untuk kamu.
+        </p>
+      </div>
+
+      {/* grid otomatis biar responsif tanpa media query ribet */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
+        {features.map((feat) => (
+          <div key={feat.id} style={{ 
+            backgroundColor: '#161b22', 
+            padding: '2rem', 
+            borderRadius: '1.5rem', 
+            border: `1px solid ${feat.borderColor}` 
+          }}>
+            <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>{feat.icon}</div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: feat.borderColor, marginBottom: "0.5rem" }}>
+              {feat.title}
+            </h3>
+            <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
+              {feat.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// CTA BANNER
+// ─────────────────────────────────────────────────────────
+function CTABanner() {
+  return (
+    // gradasi mentereng biar mata user seger
+    <section style={{ width: '100%', padding: '60px 2rem', background: 'linear-gradient(90deg, #00CFFF 0%, #F9A826 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '1.5rem', color: '#0D1117' }}>
+      <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>
+        Siap Memesan? 🛒
+      </h2>
+      <p style={{ fontSize: "1.1rem", fontWeight: 500, maxWidth: "500px", margin: 0, opacity: 0.9 }}>
+        Pilih snack favoritmu sekarang dan checkout langsung via WhatsApp. Gak ribet, langsung diproses!
+      </p>
+      
+      <Link href="#katalog" style={{ backgroundColor: '#0D1117', color: 'white', padding: '12px 32px', borderRadius: '99px', fontWeight: '600', border: 'none', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+        Mulai Belanja
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </Link>
+    </section>
   );
 }
