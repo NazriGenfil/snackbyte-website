@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import pake path relatif setelah folder dipindah ke app/components
 import Navbar from "./components/Navbar";
+import NotificationToast from "./components/NotificationToast";
 
 // subset latin cukup biar bundle ringan, swap biar gak FOUT
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -37,6 +38,7 @@ export default function RootLayout({
     <html lang="id" className={`${plusJakartaSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#0D1117] text-slate-200 antialiased">
         <Navbar />
+        <NotificationToast />
         {children}
         <Footer />
       </body>

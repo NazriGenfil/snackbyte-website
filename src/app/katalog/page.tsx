@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCartStore, Product } from "@/store/useCartStore";
+import { useNotificationStore } from "@/store/useNotificationStore";
 // import langsung aja biar gak drama fetch error 404
 import productsData from "@/data/products.json";
 
@@ -10,6 +11,7 @@ export default function KatalogPage() {
     const [products] = useState<Product[]>(productsData as Product[]);
     const [filter, setFilter] = useState("Semua");
     const addToCart = useCartStore(state => state.addToCart);
+    const addNotification = useNotificationStore(state => state.addNotification);
 
     // filter data biar user gak pusing nyari
     const filteredProducts = products.filter(p => filter === "Semua" ? true : p.category === filter);
@@ -134,7 +136,10 @@ export default function KatalogPage() {
                                         </button>
                                         <button 
                                             // tambah ke cart zustand dengan icon juga
-                                            onClick={() => addToCart(product)}
+                                            onClick={() => {
+                                                addToCart(product);
+                                                addNotification(`${product.name} ditambahkan ke keranjang!`);
+                                            }}
                                             style={{
                                                 backgroundColor: "#00CFFF",
                                                 color: "#0D1117",
