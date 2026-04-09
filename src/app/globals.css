@@ -1,26 +1,79 @@
+/* ============================================================
+   SnackByte — Global Styles & Tailwind v4 Theme
+   CSS-first config, semua token brand di sini aja, gak perlu tailwind.config.ts
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Brand Color Tokens ── */
+@theme {
+  /* Font */
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  /* Warm orange/amber — si snack yang menggugah selera */
+  --color-brand-50:  #fff8f0;
+  --color-brand-100: #ffecd6;
+  --color-brand-200: #ffd4a8;
+  --color-brand-300: #ffb46a;
+  --color-brand-400: #ff8c2a;
+  --color-brand-500: #f97316; /* primary */
+  --color-brand-600: #ea6108;
+  --color-brand-700: #c24d09;
+  --color-brand-800: #9a3e10;
+  --color-brand-900: #7c3410;
+
+  /* Cream/neutral — biar matanya ga lelah */
+  --color-cream-50:  #fdf9f4;
+  --color-cream-100: #f9f0e3;
+  --color-cream-200: #f0dfc8;
+
+  /* Surface tokens */
+  --color-surface: var(--color-cream-50);
+  --color-surface-alt: #ffffff;
+
+  /* Text tokens */
+  --color-text-primary:   #1a1106;
+  --color-text-secondary: #6b5c44;
+  --color-text-muted:     #a89070;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Base Resets ── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ── Utility: scrollbar tipis biar keliatan lebih premium ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-300);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-500);
+}
+
+/* ── Transition default biar semua hover enak ── */
+a, button {
+  transition: all 0.2s ease;
 }
