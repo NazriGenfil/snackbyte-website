@@ -30,7 +30,7 @@ export default function KatalogPage() {
     return (
         <main style={{ minHeight: "100vh", padding: "80px 2rem", flex: 1, backgroundColor: "#0D1117" }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-                
+
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "3rem" }}>
                     <h1 style={{ fontSize: "2.5rem", fontWeight: 800, margin: "0 0 0.5rem 0", color: "#f8fafc" }}>
@@ -46,7 +46,7 @@ export default function KatalogPage() {
                     {["Semua", "Makanan", "Minuman"].map((cat) => {
                         const isActive = filter === cat;
                         return (
-                            <button 
+                            <button
                                 key={cat}
                                 onClick={() => setFilter(cat)}
                                 style={{
@@ -70,9 +70,9 @@ export default function KatalogPage() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                     {filteredProducts.map(product => (
                         // UI kartu produk sesuai figma
-                        <div key={product.id} style={{ 
-                            backgroundColor: "#161b22", 
-                            borderRadius: "1.5rem", 
+                        <div key={product.id} style={{
+                            backgroundColor: "#161b22",
+                            borderRadius: "1.5rem",
                             border: "1px solid #30363d",
                             overflow: "hidden",
                             display: "flex",
@@ -80,9 +80,9 @@ export default function KatalogPage() {
                         }}>
                             {/* Image Setup */}
                             <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                                <img 
-                                    src={product.image} 
-                                    alt={product.name} 
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
                                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                                 />
                             </div>
@@ -96,12 +96,12 @@ export default function KatalogPage() {
                                             {product.description}
                                         </p>
                                     </div>
-                                    <span style={{ 
-                                        backgroundColor: "rgba(0,207,255,0.1)", 
-                                        color: "#00CFFF", 
-                                        padding: "4px 10px", 
-                                        borderRadius: "99px", 
-                                        fontSize: "0.75rem", 
+                                    <span style={{
+                                        backgroundColor: "rgba(0,207,255,0.1)",
+                                        color: "#00CFFF",
+                                        padding: "4px 10px",
+                                        borderRadius: "99px",
+                                        fontSize: "0.75rem",
                                         fontWeight: 700,
                                         whiteSpace: "nowrap",
                                         marginLeft: "1rem"
@@ -116,7 +116,7 @@ export default function KatalogPage() {
                                     </span>
 
                                     <div style={{ display: "flex", gap: "0.75rem" }}>
-                                        <button 
+                                        <button
                                             // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
                                             onClick={() => handleQuickBuy(product)}
                                             style={{
@@ -134,13 +134,13 @@ export default function KatalogPage() {
                                         >
                                             Beli
                                         </button>
-                                        <button 
+                                        <button
                                             // tambah ke cart zustand dengan icon juga
                                             onClick={() => {
                                                 addToCart(product);
                                                 addNotification(`${product.name} ditambahkan!`);
                                                 // trigger dua kali biar efek tumpuknya langsung kelihatan estetik
-                                                setTimeout(() => addNotification(`Jangan lupa checkout di keranjang ya!`), 100);
+                                                // setTimeout(() => addNotification(`Jangan lupa checkout di keranjang ya!`), 100);
                                             }}
                                             style={{
                                                 backgroundColor: "#00CFFF",

@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     // background dipastiin #0D1117 lewat CSS var, bukan hardcode di sini
-    <html lang="id" className={`${plusJakartaSans.variable} h-full`}>
+    <html lang="id" data-scroll-behavior="smooth" className={`${plusJakartaSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#0D1117] text-slate-200 antialiased">
         <Navbar />
         <NotificationToast />
