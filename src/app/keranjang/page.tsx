@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/useCartStore";
 
 export default function KeranjangPage() {
@@ -106,8 +107,9 @@ export default function KeranjangPage() {
                                 border: "1px solid #30363d",
                                 flexWrap: "wrap"
                             }}>
-                                <div style={{ width: "80px", height: "80px", borderRadius: "0.75rem", overflow: "hidden", flexShrink: 0 }}>
-                                    <img src={item.image} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                <div style={{ position: "relative", width: "80px", height: "80px", borderRadius: "0.75rem", overflow: "hidden", flexShrink: 0 }}>
+                                    {/* pake next/image biar loading secepat kilat */}
+                                    <Image src={item.image} alt={item.name} fill style={{ objectFit: "cover" }} sizes="80px" />
                                 </div>
                                 
                                 <div style={{ flex: 1, minWidth: "200px" }}>

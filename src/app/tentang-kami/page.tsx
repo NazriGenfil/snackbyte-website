@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import aboutData from "@/data/about.json";
 
 export default function TentangKamiPage() {
@@ -56,16 +57,23 @@ export default function TentangKamiPage() {
                         border: "1px solid #1e2a3a"
                     }}>
                         <AnimatePresence mode="wait">
-                            <motion.img
+                            <motion.div
                                 key={currentImageIndex}
-                                src={history.images[currentImageIndex]}
-                                alt={`History image ${currentImageIndex + 1}`}
                                 initial={{ opacity: 0, scale: 1.05 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                                style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-                            />
+                                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                            >
+                                {/* ganti ke webp biar file enteng banget */}
+                                <Image
+                                    src={history.images[currentImageIndex]}
+                                    alt={`History image ${currentImageIndex + 1}`}
+                                    fill
+                                    style={{ objectFit: "cover" }}
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                />
+                            </motion.div>
                         </AnimatePresence>
                     </div>
                 </section>
