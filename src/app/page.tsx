@@ -219,7 +219,14 @@ function FeaturesSection() {
 
   return (
     <section id="tentang" style={{ padding: '80px 2rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
-      <div style={{ textAlign: "center" }}>
+      {/* animasi nongol pas di-scroll biar mantap */}
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8 }}
+        style={{ textAlign: "center" }}
+      >
         <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 800, margin: "0 0 1rem 0" }}>
           <span className="text-slate-50">Mengapa Memilih </span>
           <span className="text-[#00CFFF]">Snack</span>
@@ -229,17 +236,25 @@ function FeaturesSection() {
         <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "500px", margin: "0 auto" }}>
           Kami menyediakan snack berkualitas dengan harga terjangkau dan pelayanan terbaik untuk kamu.
         </p>
-      </div>
+      </motion.div>
 
       {/* grid otomatis biar responsif tanpa media query ribet */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
-        {features.map((feat) => (
-          <div key={feat.id} style={{
-            backgroundColor: '#161b22',
-            padding: '2rem',
-            borderRadius: '1.5rem',
-            border: `1px solid ${feat.borderColor}`
-          }}>
+        {features.map((feat, index) => (
+          <motion.div 
+            key={feat.id} 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            style={{
+              backgroundColor: '#161b22',
+              padding: '2rem',
+              borderRadius: '1.5rem',
+              border: `1px solid ${feat.borderColor}`
+            }}
+          >
+            {/* kasih efek staggered biar munculnya gantian */}
             <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>{feat.icon}</div>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: feat.borderColor, marginBottom: "0.5rem" }}>
               {feat.title}
@@ -247,7 +262,7 @@ function FeaturesSection() {
             <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
               {feat.description}
             </p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
@@ -260,7 +275,14 @@ function FeaturesSection() {
 function CTABanner() {
   return (
     // gradasi mentereng biar mata user seger
-    <section style={{ width: '100%', padding: '60px 2rem', background: 'linear-gradient(90deg, #00CFFF 0%, #F9A826 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '1.5rem', color: '#0D1117' }}>
+    // banner bawah fade-in halus
+    <motion.section 
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      style={{ width: '100%', padding: '60px 2rem', background: 'linear-gradient(90deg, #00CFFF 0%, #F9A826 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '1.5rem', color: '#0D1117' }}
+    >
       <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>
         Siap Memesan? 🛒
       </h2>
@@ -274,6 +296,6 @@ function CTABanner() {
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </Link>
-    </section>
+    </motion.section>
   );
 }
