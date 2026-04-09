@@ -177,9 +177,12 @@ function HeroSection() {
             transition={{ duration: 1, delay: 0.4, ease: "linear" }}
             style={{ width: '100%', maxWidth: '420px', position: 'relative', borderRadius: '2rem', overflow: 'hidden', border: '2px solid rgba(0, 207, 255, 0.2)', boxShadow: '0 0 60px rgba(0, 207, 255, 0.15)' }}
           >
-            <img
+            <Image
               src="/images/hero-food.webp"
               alt="SnackByte — aneka camilan kekinian pilihan Gen-Z"
+              width={420}
+              height={420}
+              priority
               style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
             />
           </motion.div>

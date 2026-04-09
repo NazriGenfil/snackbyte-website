@@ -57,6 +57,7 @@ export default function Navbar() {
 
   // Mencegah hydration mismatch error di Next.js dengan useEffect
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setCartCount(cartStore.reduce((acc, item) => acc + item.quantity, 0));
   }, [cartStore]);

@@ -10,6 +10,8 @@ export default function KeranjangPage() {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        // benerin hydration biar gak error pas render
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true);
     }, []);
 
