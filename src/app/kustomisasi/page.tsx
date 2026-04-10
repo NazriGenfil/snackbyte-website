@@ -2,6 +2,7 @@
 
 import { useCartStore } from "@/store/useCartStore";
 import { useNotificationStore } from "@/store/useNotificationStore";
+import { motion } from "framer-motion";
 
 // tarik data dari json biar gak ribet
 import addonsData from "@/data/addons.json";
@@ -24,32 +25,57 @@ export default function KustomisasiPage() {
             <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
                 
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+                {/* Header */}
+                {/* judul turun dari atas cepet */}
+                <motion.div 
+                    initial={{ opacity: 0, y: -40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    style={{ textAlign: "center", marginBottom: "3rem" }}
+                >
                     <h1 style={{ fontSize: "2.5rem", fontWeight: 800, margin: "0 0 0.5rem 0", color: "#f8fafc" }}>
                         Kustomisasi Pesanan
                     </h1>
                     <p style={{ color: "#94a3b8", fontSize: "1.1rem", margin: 0 }}>
                         Personalisasi pesananmu dengan berbagai pilihan add-ons
                     </p>
-                </div>
+                </motion.div>
 
-                {/* Add-ons Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginBottom: "3rem" }}>
-                    {/* mapping add-ons biar dinamis */}
-                    {addonsData.map(addon => {
-                        const selectedInfo = selectedAddons.find(a => a.id === addon.id);
-                        const qty = selectedInfo ? selectedInfo.quantity : 0;
+                {/* Add-ons Container */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    {/* Add-ons Grid */}
+                    {/* list add-ons nongol satu-satu dari bawah biar estetik */}
+                    <motion.div 
+                        variants={{ visible: { transition: { staggerChildren: 0.1 } }, hidden: {} }}
+                        initial="hidden"
+                        animate="visible"
+                        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginBottom: "3rem" }}
+                    >
+                        {/* mapping add-ons biar dinamis */}
+                        {addonsData.map(addon => {
+                            const selectedInfo = selectedAddons.find(a => a.id === addon.id);
+                            const qty = selectedInfo ? selectedInfo.quantity : 0;
 
-                        return (
-                            <div key={addon.id} style={{ 
-                                backgroundColor: '#161b22', 
-                                border: '1px solid #30363d', 
-                                borderRadius: '1rem', 
-                                padding: '1.5rem',
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "1rem"
-                            }}>
+                            return (
+                                <motion.div 
+                                    key={addon.id} 
+                                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 30 } }}
+                                    transition={{ duration: 0.5, ease: [0.175, 0.885, 0.32, 1.275] }}
+                                    style={{ 
+                                        backgroundColor: '#161b22', 
+                                        border: '1px solid #30363d', 
+                                        borderRadius: '1rem', 
+                                        padding: '1.5rem',
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "1rem"
+                                    }}
+                                >
+                                {/* animasi halus biar kustomisasi berasa responsif */}
                                 <div>
                                     <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0 0 0.5rem 0", color: "#f8fafc" }}>{addon.name}</h3>
                                     <span style={{ color: "#F9A826", fontWeight: 600 }}>{formatRupiah(addon.price)}</span>
@@ -68,10 +94,11 @@ export default function KustomisasiPage() {
                                         className="hover:bg-slate-700 hover:border-slate-600 transition-colors"
                                     >+</button>
                                 </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
+                </motion.div>
 
                 {/* Ringkasan Kustomisasi */}
                 {selectedAddons.length > 0 && (
