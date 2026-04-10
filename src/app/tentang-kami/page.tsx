@@ -26,42 +26,64 @@ export default function TentangKamiPage() {
             <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6rem" }}>
                 
                 {/* 1. Header Section */}
-                <div style={{ textAlign: "center" }}>
+                {/* 1. Header Section */}
+                {/* judul tentang kami nongol cepet dari atas */}
+                <motion.div 
+                    initial={{ opacity: 0, y: -40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    style={{ textAlign: "center" }}
+                >
                     <h1 style={{ fontSize: "3rem", fontWeight: 800, margin: "0 0 1rem 0", color: "#f8fafc" }}>
                         Tentang Kami
                     </h1>
                     <p style={{ color: "#94a3b8", fontSize: "1.2rem", maxWidth: "600px", margin: "0 auto" }}>
                         Mengenal lebih dekat siapa kami dan apa yang membuat SnackByte begitu istimewa.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* 2. History Section (Flexbox 2 Columns) */}
                 <section style={{ display: "flex", flexWrap: "wrap", gap: "4rem", alignItems: "center" }}>
-                    <div style={{ flex: "1 1 500px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                    {/* teks sejarah Nongol alus dari kiri kayak homepage */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -60 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: [0.175, 0.885, 0.32, 1.275] }}
+                        style={{ flex: "1 1 500px", display: "flex", flexDirection: "column", gap: "1.5rem" }}
+                    >
                         <h2 style={{ fontSize: "2.5rem", fontWeight: 800, margin: 0, color: "#00CFFF" }}>
                             {history.title}
                         </h2>
                         <div style={{ color: "#cbd5e1", fontSize: "1.1rem", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>
                             {history.content}
                         </div>
-                    </div>
+                    </motion.div>
                     
                     {/* Slideshow Component */}
-                    <div style={{ 
-                        flex: "1 1 500px", 
-                        position: "relative", 
-                        height: "400px", 
-                        borderRadius: "2rem", 
-                        overflow: "hidden",
-                        boxShadow: "0 0 40px rgba(0, 207, 255, 0.15)",
-                        border: "1px solid #1e2a3a"
-                    }}>
+                    {/* foto fade-in belakangan biar dramatis */}
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                        style={{ 
+                            flex: "1 1 500px", 
+                            position: "relative", 
+                            height: "400px", 
+                            borderRadius: "2rem", 
+                            overflow: "hidden",
+                            boxShadow: "0 0 40px rgba(0, 207, 255, 0.15)",
+                            border: "1px solid #1e2a3a"
+                        }}
+                    >
+                        {/* pake AnimatePresence biar cross-fade alus */}
                         <AnimatePresence mode="wait">
+                            {/* benerin transisi slideshow biar gak ngagetin */}
+                            {/* kasih key unik biar transisinya jalan tiap ganti gambar */}
                             <motion.div
                                 key={currentImageIndex}
                                 initial={{ opacity: 0, scale: 1.05 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.8, ease: "easeInOut" }}
                                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                             >
@@ -75,46 +97,72 @@ export default function TentangKamiPage() {
                                 />
                             </motion.div>
                         </AnimatePresence>
-                    </div>
+                    </motion.div>
                 </section>
 
                 {/* 3. Values Section */}
-                <section style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+                {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
+                <motion.section 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    style={{ display: "flex", flexDirection: "column", gap: "3rem" }}
+                >
                     <h2 style={{ fontSize: "2.5rem", fontWeight: 800, textAlign: "center", margin: 0, color: "#f8fafc" }}>
                         Nilai-Nilai Kami
                     </h2>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+                    <motion.div 
+                        variants={{ visible: { transition: { staggerChildren: 0.15 } }, hidden: {} }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}
+                    >
                         {values.map(val => (
-                            <div key={val.id} style={{ 
-                                backgroundColor: "#161b22", 
-                                border: `1px solid ${val.color}40`,
-                                borderTop: `4px solid ${val.color}`,
-                                borderRadius: "1rem", 
-                                padding: "2rem",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "1rem",
-                                transition: "transform 0.3s ease"
-                            }} className="hover:-translate-y-2">
+                            <motion.div 
+                                key={val.id} 
+                                variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
+                                transition={{ duration: 0.6 }}
+                                style={{ 
+                                    backgroundColor: "#161b22", 
+                                    border: `1px solid ${val.color}40`,
+                                    borderTop: `4px solid ${val.color}`,
+                                    borderRadius: "1rem", 
+                                    padding: "2rem",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "1rem",
+                                    transition: "transform 0.3s ease"
+                                }} 
+                                className="hover:-translate-y-2"
+                            >
                                 <span style={{ fontSize: "3rem" }}>{val.icon}</span>
                                 <h3 style={{ fontSize: "1.5rem", fontWeight: 800, margin: 0, color: "#f8fafc" }}>{val.title}</h3>
                                 <p style={{ margin: 0, color: "#94a3b8", lineHeight: 1.6 }}>{val.desc}</p>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
-                </section>
+                    </motion.div>
+                </motion.section>
 
                 {/* 4. Mission Banner */}
-                <section style={{ 
-                    background: "linear-gradient(135deg, #00CFFF 0%, #F9A826 100%)",
-                    borderRadius: "2rem",
-                    padding: "4rem 2rem",
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "3rem",
-                    color: "#0D1117"
-                }}>
+                {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
+                <motion.section 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    style={{ 
+                        background: "linear-gradient(135deg, #00CFFF 0%, #F9A826 100%)",
+                        borderRadius: "2rem",
+                        padding: "4rem 2rem",
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "3rem",
+                        color: "#0D1117"
+                    }}
+                >
                     <div style={{ maxWidth: "800px", margin: "0 auto" }}>
                         <h2 style={{ fontSize: "3rem", fontWeight: 800, margin: "0 0 1rem 0" }}>
                             Mimpi Kami ke Depan
@@ -136,21 +184,40 @@ export default function TentangKamiPage() {
                             </div>
                         ))}
                     </div>
-                </section>
+                </motion.section>
 
                 {/* 5. Timeline Section */}
                 {/* rapihin timeline perjalanan snackbyte */}
-                <section style={{ display: "flex", flexDirection: "column", gap: "4rem", alignItems: "center" }}>
+                {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
+                <motion.section 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    style={{ display: "flex", flexDirection: "column", gap: "4rem", alignItems: "center" }}
+                >
                     <h2 style={{ fontSize: "2.5rem", fontWeight: 800, margin: 0, color: "#f8fafc" }}>
                         Perjalanan Kami
                     </h2>
                     
-                    <div style={{ display: "flex", flexDirection: "column", gap: "3rem", width: "100%", maxWidth: "800px", position: "relative" }}>
+                    <motion.div 
+                        variants={{ visible: { transition: { staggerChildren: 0.15 } }, hidden: {} }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        style={{ display: "flex", flexDirection: "column", gap: "3rem", width: "100%", maxWidth: "800px", position: "relative" }}
+                    >
                         {/* Garis vertikal di tengah/kiri */}
                         <div style={{ position: "absolute", left: "40px", top: "0", bottom: "0", width: "2px", backgroundColor: "#30363d", zIndex: 0 }} className="hidden sm:block"></div>
 
                         {timeline.map((item, index) => (
-                            <div key={index} style={{ display: "flex", gap: "2rem", alignItems: "flex-start", position: "relative", zIndex: 1 }} className="flex-col sm:flex-row">
+                            <motion.div 
+                                key={index} 
+                                variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
+                                transition={{ duration: 0.6 }}
+                                style={{ display: "flex", gap: "2rem", alignItems: "flex-start", position: "relative", zIndex: 1 }} 
+                                className="flex-col sm:flex-row"
+                            >
                                 
                                 {/* Bulatan Tahun */}
                                 <div style={{ 
@@ -187,10 +254,10 @@ export default function TentangKamiPage() {
                                     </p>
                                 </div>
 
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
-                </section>
+                    </motion.div>
+                </motion.section>
 
             </div>
         </main>

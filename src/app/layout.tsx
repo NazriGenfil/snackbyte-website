@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/icon.ico",
     shortcut: "/images/icon.ico",
-    // apple: "/images/icon.ico",
+    // apple: "/images/icon.ico", //jaga jaga kalo ada icon khususu untuk apple
   },
 };
 
