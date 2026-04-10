@@ -14,9 +14,10 @@ export default function TentangKamiPage() {
     // itung jumlah gambar dulu baru pasang timer
     useEffect(() => {
         if (history.images.length > 1) {
+            // interval slideshow dilambatin biar user gak pusing baca
             const interval = setInterval(() => {
                 setCurrentImageIndex((prev) => (prev + 1) % history.images.length);
-            }, 3000);
+            }, 5000);
             return () => clearInterval(interval);
         }
     }, [history.images.length]);
@@ -75,16 +76,16 @@ export default function TentangKamiPage() {
                             border: "1px solid #1e2a3a"
                         }}
                     >
-                        {/* pake AnimatePresence biar cross-fade alus */}
+                        {/* benerin transisi slideshow biar smooth premium */}
                         <AnimatePresence mode="wait">
-                            {/* benerin transisi slideshow biar gak ngagetin */}
                             {/* kasih key unik biar transisinya jalan tiap ganti gambar */}
+                            {/* durasi fade-in dipanjangin biar alus */}
                             <motion.div
                                 key={currentImageIndex}
                                 initial={{ opacity: 0, scale: 1.05 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                transition={{ duration: 1.2, ease: "easeInOut" }}
                                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                             >
                                 {/* ganti ke webp biar file enteng banget */}
