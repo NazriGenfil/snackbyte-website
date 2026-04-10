@@ -21,12 +21,12 @@ export default function KeranjangPage() {
 
     // gas ke whatsapp buat jualan
     const handleCheckout = () => {
-        const phone = "6281234567890";
+        const phone = "6285715999325";
         let text = "Halo SnackByte! Saya mau pesan:\n\nItems:\n";
         cart.forEach(item => {
             text += `- ${item.quantity}x ${item.name} (${formatRupiah(item.price * item.quantity)})\n`;
         });
-        
+
         if (selectedAddons.length > 0) {
             // masukin semua tambahan ke rangkuman WA
             text += `\nTambahan (Kustomisasi):\n`;
@@ -38,7 +38,7 @@ export default function KeranjangPage() {
         const grandTotal = getTotalPrice() + getTotalAddonPrice();
         // benerin itungan total biar gak rugi
         text += `\nTOTAL AKHIR: ${formatRupiah(grandTotal)}\nMohon diproses ya, terima kasih!`;
-        
+
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
     };
 
@@ -61,13 +61,13 @@ export default function KeranjangPage() {
                             Belum ada produk di keranjang. Yuk mulai belanja!
                         </p>
                     </div>
-                    <Link href="/katalog" style={{ 
-                        backgroundColor: "#00CFFF", 
-                        color: "#0D1117", 
-                        padding: "16px 32px", 
-                        borderRadius: "9999px", 
-                        fontWeight: 700, 
-                        display: "inline-flex", 
+                    <Link href="/katalog" style={{
+                        backgroundColor: "#00CFFF",
+                        color: "#0D1117",
+                        padding: "16px 32px",
+                        borderRadius: "9999px",
+                        fontWeight: 700,
+                        display: "inline-flex",
                         textDecoration: "none",
                         marginTop: "1rem"
                     }}>
@@ -83,25 +83,25 @@ export default function KeranjangPage() {
     return (
         <main style={{ minHeight: "100vh", padding: "80px 2rem", flex: 1, backgroundColor: "#0D1117" }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-                
+
                 <h1 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 2rem 0", color: "#f8fafc" }}>
                     Keranjang Belanja
                 </h1>
 
-                <div 
-                    style={{ 
-                        display: "grid", 
+                <div
+                    style={{
+                        display: "grid",
                         gap: "2rem",
                         width: "100%"
-                    }} 
+                    }}
                     className="grid-cols-1 md:grid-cols-[1fr_400px]"
                 >
                     {/* Kiri: Daftar Items */}
                     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                         {cart.map(item => (
-                            <div key={item.id} style={{ 
-                                display: "flex", 
-                                alignItems: "center", 
+                            <div key={item.id} style={{
+                                display: "flex",
+                                alignItems: "center",
                                 gap: "1.5rem",
                                 padding: "1.5rem",
                                 backgroundColor: "#161b22",
@@ -113,18 +113,18 @@ export default function KeranjangPage() {
                                     {/* pake next/image biar loading secepat kilat */}
                                     <Image src={item.image} alt={item.name} fill style={{ objectFit: "cover" }} sizes="80px" />
                                 </div>
-                                
+
                                 <div style={{ flex: 1, minWidth: "200px" }}>
                                     <h3 style={{ fontSize: "1.1rem", fontWeight: 700, margin: "0 0 0.5rem 0", color: "#f8fafc" }}>{item.name}</h3>
                                     <span style={{ color: "#F9A826", fontWeight: 600 }}>{formatRupiah(item.price)}</span>
-                                    
+
                                     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginTop: "1rem" }}>
-                                        <button 
+                                        <button
                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                             style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#0D1117", border: "1px solid #30363d", color: "white", borderRadius: "0.5rem", cursor: "pointer" }}
                                         >-</button>
                                         <span style={{ fontWeight: 600, minWidth: "24px", textAlign: "center" }}>{item.quantity}</span>
-                                        <button 
+                                        <button
                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                             style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#0D1117", border: "1px solid #30363d", color: "white", borderRadius: "0.5rem", cursor: "pointer" }}
                                         >+</button>
@@ -133,7 +133,7 @@ export default function KeranjangPage() {
 
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1rem" }}>
                                     <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>{formatRupiah(item.price * item.quantity)}</span>
-                                    <button 
+                                    <button
                                         onClick={() => removeFromCart(item.id)}
                                         style={{ backgroundColor: "transparent", border: "none", color: "#f87171", cursor: "pointer", padding: "0.5rem", display: "flex", alignItems: "center" }}
                                         aria-label="Hapus item"
@@ -159,17 +159,17 @@ export default function KeranjangPage() {
                             gap: "1.5rem"
                         }}>
                             <h2 style={{ fontSize: "1.25rem", fontWeight: 800, margin: 0, color: "#f8fafc" }}>Ringkasan Pesanan</h2>
-                            
+
                             <div style={{ display: "flex", justifyContent: "space-between", color: "#94a3b8" }}>
                                 <span>Jumlah Item</span>
                                 <span style={{ color: "#f8fafc", fontWeight: 600 }}>{totalItems}</span>
                             </div>
-                            
+
                             <div style={{ display: "flex", justifyContent: "space-between", color: "#94a3b8" }}>
                                 <span>Subtotal</span>
                                 <span style={{ color: "#f8fafc", fontWeight: 600 }}>{formatRupiah(getTotalPrice())}</span>
                             </div>
-                            
+
                             {/* tampilin detail tambahan biar user gak bingung */}
                             {selectedAddons.length > 0 ? (
                                 <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
@@ -196,7 +196,7 @@ export default function KeranjangPage() {
                                 <span style={{ color: "#F9A826", fontSize: "1.5rem", fontWeight: 800 }}>{formatRupiah(getTotalPrice() + getTotalAddonPrice())}</span>
                             </div>
 
-                            <button 
+                            <button
                                 onClick={handleCheckout}
                                 style={{
                                     width: "100%",
@@ -214,7 +214,7 @@ export default function KeranjangPage() {
                                 Checkout via WhatsApp
                             </button>
 
-                            <button 
+                            <button
                                 onClick={clearCart}
                                 style={{
                                     width: "100%",
