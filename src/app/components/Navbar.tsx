@@ -70,7 +70,8 @@ export default function Navbar() {
 
       {/* ─── Main Bar ─── */}
       {/* batesin lebar biar gak bablas ke samping */}
-      <div style={{ width: '100%', maxWidth: '1440px', height: '80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4rem' }}>
+      {/* padding dikecilin pas di HP biar gak luber */}
+      <div className="w-full max-w-[1440px] h-[80px] flex justify-between items-center px-4 md:px-16">
 
         {/* ── Kiri: Logo ── */}
         <Link href="/" id="nav-logo" style={{ flexShrink: 0, textDecoration: "none", fontSize: '1.5rem', fontWeight: '800' }}
@@ -83,8 +84,8 @@ export default function Navbar() {
         <nav
           id="nav-desktop"
           aria-label="Navigasi utama"
-          style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}
-          className="hidden md:flex"
+          // pindahin inline style ke tailwind biar beneran responsif
+          className="hidden md:flex items-center gap-10"
         >
           {navLinks.map((link) => (
             <Link
@@ -106,7 +107,7 @@ export default function Navbar() {
         </nav>
 
         {/* ── Kanan: Icons + Burger ── */}
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center", flexShrink: 0 }}>
+        <div className="flex items-center gap-3 md:gap-8 shrink-0">
 
           <button id="nav-search" aria-label="Cari produk"
             className="p-2 rounded-lg text-slate-400 hover:text-[#00CFFF] hover:bg-[#00CFFF]/10 transition-colors">
@@ -137,8 +138,7 @@ export default function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileOpen((p) => !p)}
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-            style={{ marginLeft: "4px" }}
+            className="md:hidden ml-1 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
           >
             <IconBurger isOpen={mobileOpen} />
           </button>
