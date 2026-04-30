@@ -4,10 +4,17 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCartStore } from "@/store/useCartStore";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function KeranjangPage() {
     const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice, selectedAddons, getTotalAddonPrice } = useCartStore();
     const [mounted, setMounted] = useState(false);
+
+    // form data diri sebelum checkout
+    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+    const [customerName, setCustomerName] = useState("");
+    const [customerPhone, setCustomerPhone] = useState("");
+    const [orderType, setOrderType] = useState("Ambil di Market Day");
 
     useEffect(() => {
         // benerin hydration biar gak error pas render
@@ -20,26 +27,38 @@ export default function KeranjangPage() {
     };
 
     // gas ke whatsapp buat jualan
-    const handleCheckout = () => {
+    const handleCheckoutClick = () => {
+        setIsCheckoutModalOpen(true);
+    };
+
+    const processWhatsAppOrder = () => {
+        if (!customerName || !customerPhone) return;
+
         const phone = "6283161858766";
-        let text = "Halo SnackByte! Saya mau pesan:\n\nItems:\n";
+        // kumpulin data buat WA
+        let text = `Halo Min, konfirmasi pesanan:\n\n`;
+        text += `Nama: ${customerName}\n`;
+        text += `No: ${customerPhone}\n`;
+        text += `Tipe: ${orderType}\n\n`;
+        text += `Pesanan:\n`;
+        
         cart.forEach(item => {
             text += `- ${item.quantity}x ${item.name} (${formatRupiah(item.price * item.quantity)})\n`;
         });
 
         if (selectedAddons.length > 0) {
-            // masukin semua tambahan ke rangkuman WA
-            text += `\nTambahan (Kustomisasi):\n`;
+            text += `\nTambahan:\n`;
             selectedAddons.forEach(addon => {
                 text += `- ${addon.quantity}x ${addon.name} (${formatRupiah(addon.price * addon.quantity)})\n`;
             });
         }
 
         const grandTotal = getTotalPrice() + getTotalAddonPrice();
-        // benerin itungan total biar gak rugi
-        text += `\nTOTAL AKHIR: ${formatRupiah(grandTotal)}\nMohon diproses ya, terima kasih!`;
+        text += `\nTotal: ${formatRupiah(grandTotal)}\n`;
+        text += `(Bukti bayar terlampir)`;
 
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+        setIsCheckoutModalOpen(false);
     };
 
     if (!mounted) return <div style={{ minHeight: "100vh", backgroundColor: "#0D1117" }}></div>;
@@ -197,7 +216,7 @@ export default function KeranjangPage() {
                             </div>
 
                             <button
-                                onClick={handleCheckout}
+                                onClick={handleCheckoutClick}
                                 style={{
                                     width: "100%",
                                     backgroundColor: "#00CFFF",
@@ -211,7 +230,7 @@ export default function KeranjangPage() {
                                     marginTop: "0.5rem"
                                 }}
                             >
-                                Checkout via WhatsApp
+                                Proses Pesanan
                             </button>
 
                             <button
@@ -238,6 +257,133 @@ export default function KeranjangPage() {
 
                 </div>
             </div>
+
+            {/* Checkout Modal */}
+            <AnimatePresence>
+                {isCheckoutModalOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            zIndex: 1000,
+                            backgroundColor: "rgba(13, 17, 23, 0.8)",
+                            backdropFilter: "blur(4px)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "1rem"
+                        }}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            style={{
+                                backgroundColor: "#161b22",
+                                width: "100%",
+                                maxWidth: "500px",
+                                borderRadius: "1.5rem",
+                                border: "1px solid #30363d",
+                                padding: "2rem",
+                                boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+                                maxHeight: "90vh",
+                                overflowY: "auto"
+                            }}
+                        >
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                                <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Data Pesanan</h2>
+                                <button 
+                                    onClick={() => setIsCheckoutModalOpen(false)}
+                                    style={{ background: "none", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "1.5rem" }}
+                                >
+                                    &times;
+                                </button>
+                            </div>
+
+                            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                                <div>
+                                    <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Nama Lengkap</label>
+                                    <input 
+                                        type="text" 
+                                        value={customerName}
+                                        onChange={(e) => setCustomerName(e.target.value)}
+                                        placeholder="Masukkan nama..."
+                                        style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white" }}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Nomor WhatsApp</label>
+                                    <input 
+                                        type="text" 
+                                        value={customerPhone}
+                                        onChange={(e) => setCustomerPhone(e.target.value)}
+                                        placeholder="08..."
+                                        style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white" }}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Tipe Pesanan</label>
+                                    {/* dropdown pre-order atau market day */}
+                                    <select 
+                                        value={orderType}
+                                        onChange={(e) => setOrderType(e.target.value)}
+                                        style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white" }}
+                                    >
+                                        <option value="Ambil di Market Day">Ambil di Market Day</option>
+                                        <option value="Pre-order">Pre-order</option>
+                                    </select>
+                                </div>
+                                
+                                <div style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "rgba(0,207,255,0.1)", borderRadius: "0.5rem", border: "1px solid rgba(0,207,255,0.2)" }}>
+                                    <p style={{ margin: "0 0 0.5rem 0", color: "#00CFFF", fontWeight: 600 }}>Instruksi Pembayaran</p>
+                                    <p style={{ fontSize: "0.9rem", color: "#cbd5e1", margin: "0 0 1rem 0" }}>Scan QRIS GoPay di bawah ini. Mohon screenshot bukti pembayaran untuk dikirim via WA.</p>
+                                    
+                                    <div style={{ width: "100%", height: "200px", backgroundColor: "#0D1117", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed #30363d" }}>
+                                        <span style={{ color: "#64748b" }}>[Placeholder Gambar QRIS]</span>
+                                    </div>
+                                </div>
+
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid #30363d" }}>
+                                    <span style={{ color: "#94a3b8" }}>Total Bayar</span>
+                                    <span style={{ fontSize: "1.25rem", fontWeight: 800, color: "#F9A826" }}>{formatRupiah(getTotalPrice() + getTotalAddonPrice())}</span>
+                                </div>
+
+                                <button
+                                    onClick={processWhatsAppOrder}
+                                    disabled={!customerName || !customerPhone}
+                                    style={{
+                                        width: "100%",
+                                        padding: "1rem",
+                                        borderRadius: "99px",
+                                        backgroundColor: (!customerName || !customerPhone) ? "#30363d" : "#00CFFF",
+                                        color: (!customerName || !customerPhone) ? "#94a3b8" : "#0D1117",
+                                        fontWeight: 700,
+                                        fontSize: "1.1rem",
+                                        border: "none",
+                                        cursor: (!customerName || !customerPhone) ? "not-allowed" : "pointer",
+                                        transition: "all 0.2s",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                        marginTop: "0.5rem"
+                                    }}
+                                    className={(!customerName || !customerPhone) ? "" : "hover:brightness-110"}
+                                >
+                                    Konfirmasi via WA
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </main>
     );
 }
