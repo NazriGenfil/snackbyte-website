@@ -135,7 +135,7 @@ function HeroSection() {
             </Link>
 
             {/* Secondary — gradient border pink */}
-            <Link
+            {/* <Link
               id="hero-cta-tentang"
               href="#tentang"
               style={{
@@ -150,7 +150,7 @@ function HeroSection() {
               className="hover:text-white"
             >
               Tentang Kami
-            </Link>
+            </Link> */}
           </div>
 
           {/* Stats pills kecil */}
