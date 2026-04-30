@@ -62,7 +62,7 @@ function HeroSection() {
         {/* ── Kiri: Copy ── */}
         {/* bikin tulisan nongol dari kiri alus banget */}
         {/* animasi cinematic biar dosen terpukau */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: [0.175, 0.885, 0.32, 1.275] }}
@@ -156,7 +156,7 @@ function HeroSection() {
           {/* Stats pills kecil */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", paddingTop: "0.5rem" }}>
             {[
-              { label: "20+ Produk", color: "#00CFFF" },
+              // { label: "20+ Produk", color: "#00CFFF" },
               { label: "Order via WA", color: "#F9A826" },
               { label: "Harga Terjangkau", color: "#f472b6" },
             ].map(({ label, color }) => (
@@ -171,7 +171,7 @@ function HeroSection() {
         {/* ── Kanan: Hero Image dengan glow effect ── */}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
           {/* hero image fade-in belakangan biar dramatis */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4, ease: "linear" }}
@@ -223,7 +223,7 @@ function FeaturesSection() {
   return (
     <section id="tentang" style={{ padding: '80px 2rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
       {/* animasi nongol pas di-scroll biar mantap */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -244,8 +244,8 @@ function FeaturesSection() {
       {/* grid otomatis biar responsif tanpa media query ribet */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
         {features.map((feat, index) => (
-          <motion.div 
-            key={feat.id} 
+          <motion.div
+            key={feat.id}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -279,7 +279,7 @@ function CTABanner() {
   return (
     // gradasi mentereng biar mata user seger
     // banner bawah fade-in halus
-    <motion.section 
+    <motion.section
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
