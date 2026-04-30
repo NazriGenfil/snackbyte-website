@@ -178,7 +178,7 @@ function HeroSection() {
             style={{ width: '100%', maxWidth: '420px', position: 'relative', borderRadius: '2rem', overflow: 'hidden', border: '2px solid rgba(0, 207, 255, 0.2)', boxShadow: '0 0 60px rgba(0, 207, 255, 0.15)' }}
           >
             <Image
-              src="/images/hero-food.webp"
+              src="/images/maskot.webp"
               alt="SnackByte — aneka camilan kekinian pilihan Gen-Z"
               width={420}
               height={420}
@@ -201,14 +201,14 @@ function FeaturesSection() {
       id: "feat-snack",
       icon: "🍿",
       title: "Snack Kekinian",
-      description: "Koleksi camilan terkurasi yang selalu update mengikuti tren. Dari lokal hits sampai imported favorites.",
+      description: "Cemilian Gen-Z yang ringan den menyegarkan.",
       borderColor: "#F9A826", // Amber
     },
     {
       id: "feat-kustom",
       icon: "✨",
       title: "Kustomisasi",
-      description: "Mau bikin hamper snack custom? Pilih sendiri isiannya, bungkusnya, dan pesannya. Cocok buat hadiah!",
+      description: "Tambahkan saus kesukaan anda!",
       borderColor: "#FF2D78", // Pink
     },
     {
