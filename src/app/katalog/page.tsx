@@ -252,7 +252,8 @@ export default function KatalogPage() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="w-full max-w-md bg-[#161b22] rounded-2xl p-6 border border-slate-800 shadow-2xl relative"
+                                // lebarin box modal biar lebih lega
+                                className="w-full max-w-xl bg-[#161b22] rounded-2xl p-6 border border-slate-800 shadow-2xl relative"
                             >
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
