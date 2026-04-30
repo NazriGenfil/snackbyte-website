@@ -252,8 +252,9 @@ export default function KatalogPage() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 onClick={(e) => e.stopPropagation()}
-                                // paksa kasih padding p-6 di box utamanya biar kontennya ga nabrak pinggiran
-                                className="w-full max-w-lg bg-slate-900 rounded-2xl p-6 md:p-8 relative border border-slate-800"
+                                // samain warna background modal sama kartu produk
+                                className="w-full max-w-lg rounded-2xl relative"
+                                style={{ backgroundColor: "#161b22", border: "1px solid #30363d", padding: "2rem" }}
                             >
                                 <div className="flex justify-between items-center mb-4">
                                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
@@ -274,10 +275,12 @@ export default function KatalogPage() {
                                     {addonsData.map(addon => {
                                         const isSelected = selectedAddonsLocal.includes(addon.id);
                                         return (
+                                            {/* hapus slate tailwind */}
                                             <div 
                                                 key={addon.id}
                                                 onClick={() => handleToggleAddon(addon.id)}
-                                                className={`flex items-center justify-between p-4 rounded-xl border transition-colors cursor-pointer ${isSelected ? 'border-[#00CFFF] bg-[#00CFFF]/10' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800'}`}
+                                                className="flex items-center justify-between cursor-pointer transition-all"
+                                                style={{ padding: "1rem", borderRadius: "0.75rem", backgroundColor: isSelected ? "rgba(0,207,255,0.1)" : "transparent", border: isSelected ? "1px solid #00CFFF" : "1px solid #30363d" }}
                                             >
                                                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                                                     <div style={{
