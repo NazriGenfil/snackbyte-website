@@ -252,8 +252,8 @@ export default function KatalogPage() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 onClick={(e) => e.stopPropagation()}
-                                // lebarin box modal biar lebih lega
-                                className="w-full max-w-xl bg-[#161b22] rounded-2xl p-6 border border-slate-800 shadow-2xl relative"
+                                // tambahin padding box biar lega gak nempel tembok
+                                className="w-full max-w-lg bg-[#161b22] rounded-2xl p-6 md:p-8 border border-slate-800 shadow-2xl relative"
                             >
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
@@ -269,16 +269,15 @@ export default function KatalogPage() {
                                     Pilih tambahan untuk <strong style={{ color: "#00CFFF" }}>{selectedProduct.name}</strong> kamu:
                                 </p>
 
-                                {/* ubah list ke grid card biar ga kopong */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 mb-4">
+                                {/* balikin ke list atas-bawah */}
+                                <div className="flex flex-col gap-3 py-4">
                                     {addonsData.map(addon => {
                                         const isSelected = selectedAddonsLocal.includes(addon.id);
                                         return (
-                                            /* card bisa diklik semua biar UX enak */
                                             <div 
                                                 key={addon.id}
                                                 onClick={() => handleToggleAddon(addon.id)}
-                                                className={`relative flex flex-col justify-between p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected ? 'border-[#00CFFF] bg-[#00CFFF]/10' : 'border-slate-800 bg-[#0D1117] hover:border-slate-600'}`}
+                                                className={`flex items-center justify-between p-4 rounded-xl border transition-colors cursor-pointer ${isSelected ? 'border-[#00CFFF] bg-[#00CFFF]/10' : 'border-slate-700 bg-slate-800/50 hover:bg-slate-800'}`}
                                             >
                                                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                                                     <div style={{
@@ -300,7 +299,7 @@ export default function KatalogPage() {
                                                     </div>
                                                     <span style={{ color: "#f8fafc", fontWeight: 500 }}>{addon.name}</span>
                                                 </div>
-                                                <div className="text-[#F9A826] font-semibold mt-3">
+                                                <div className="text-[#F9A826] font-semibold">
                                                     {addon.price > 0 ? `+${formatRupiah(addon.price)}` : "Gratis"}
                                                 </div>
                                             </div>
@@ -326,7 +325,7 @@ export default function KatalogPage() {
                                         alignItems: "center",
                                         gap: "0.5rem"
                                     }}
-                                    className="hover:brightness-110"
+                                    className="w-full mt-4 hover:brightness-110"
                                 >
                                     Masukkan ke Keranjang
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
