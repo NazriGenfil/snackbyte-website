@@ -130,7 +130,7 @@ export default function KatalogPage() {
                     style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}
                 >
                     {/* pasang logic staggered biar produk muncul satu-satu gantian */}
-                    {filteredProducts.map(product => (
+                    {filteredProducts.map((product, index) => (
                         // UI kartu produk sesuai figma
                         <motion.div
                             key={product.id}
@@ -149,10 +149,12 @@ export default function KatalogPage() {
                             {/* Image Setup */}
                             <div style={{ position: "relative", width: "100%", height: "200px" }}>
                                 {/* pake gambar lokal biar gak lemot loadingnya */}
+                                {/* kasih priority biar LCP cepet dan ga kena warning nextjs */}
                                 <Image
                                     src={product.image}
                                     alt={product.name}
                                     fill
+                                    priority={index === 0}
                                     style={{ objectFit: "cover" }}
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
