@@ -252,10 +252,10 @@ export default function KatalogPage() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 onClick={(e) => e.stopPropagation()}
-                                // tambahin padding box biar lega gak nempel tembok
-                                className="w-full max-w-lg bg-[#161b22] rounded-2xl p-6 md:p-8 border border-slate-800 shadow-2xl relative"
+                                // paksa kasih padding p-6 di box utamanya biar kontennya ga nabrak pinggiran
+                                className="w-full max-w-lg bg-slate-900 rounded-2xl p-6 md:p-8 relative border border-slate-800"
                             >
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                                <div className="flex justify-between items-center mb-4">
                                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
                                     <button 
                                         onClick={() => setIsAddonModalOpen(false)}
