@@ -41,7 +41,7 @@ export default function KeranjangPage() {
         text += `No: ${customerPhone}\n`;
         text += `Tipe: ${orderType}\n\n`;
         text += `Pesanan:\n`;
-        
+
         cart.forEach(item => {
             text += `- ${item.quantity}x ${item.name} (${formatRupiah(item.price * item.quantity)})\n`;
         });
@@ -296,7 +296,7 @@ export default function KeranjangPage() {
                         >
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                                 <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Data Pesanan</h2>
-                                <button 
+                                <button
                                     onClick={() => setIsCheckoutModalOpen(false)}
                                     style={{ background: "none", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "1.5rem" }}
                                 >
@@ -307,8 +307,8 @@ export default function KeranjangPage() {
                             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                                 <div>
                                     <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Nama Lengkap</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         value={customerName}
                                         onChange={(e) => setCustomerName(e.target.value)}
                                         placeholder="Masukkan nama..."
@@ -318,8 +318,8 @@ export default function KeranjangPage() {
 
                                 <div>
                                     <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Nomor WhatsApp</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         value={customerPhone}
                                         onChange={(e) => setCustomerPhone(e.target.value)}
                                         placeholder="08..."
@@ -330,7 +330,7 @@ export default function KeranjangPage() {
                                 <div>
                                     <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Tipe Pesanan</label>
                                     {/* dropdown pre-order atau market day */}
-                                    <select 
+                                    <select
                                         value={orderType}
                                         onChange={(e) => setOrderType(e.target.value)}
                                         style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white" }}
@@ -339,14 +339,15 @@ export default function KeranjangPage() {
                                         <option value="Pre-order">Pre-order</option>
                                     </select>
                                 </div>
-                                
-                                <div style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "rgba(0,207,255,0.1)", borderRadius: "0.5rem", border: "1px solid rgba(0,207,255,0.2)" }}>
-                                    <p style={{ margin: "0 0 0.5rem 0", color: "#00CFFF", fontWeight: 600 }}>Instruksi Pembayaran</p>
-                                    <p style={{ fontSize: "0.9rem", color: "#cbd5e1", margin: "0 0 1rem 0" }}>Scan QRIS GoPay di bawah ini. Mohon screenshot bukti pembayaran untuk dikirim via WA.</p>
-                                    
-                                    <div style={{ width: "100%", height: "200px", backgroundColor: "#0D1117", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed #30363d" }}>
-                                        <span style={{ color: "#64748b" }}>[Placeholder Gambar QRIS]</span>
-                                    </div>
+
+                                <div style={{ width: "100%", padding: "1rem", backgroundColor: "#ffffff", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <Image
+                                        src="/images/qris.jpeg"
+                                        alt="QRIS Pembayaran SnackByte"
+                                        width={250}
+                                        height={250}
+                                        style={{ objectFit: "contain", borderRadius: "0.25rem" }}
+                                    />
                                 </div>
 
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid #30363d" }}>
