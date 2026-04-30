@@ -274,8 +274,9 @@ export default function KatalogPage() {
                                 <div className="flex flex-col gap-3 py-4">
                                     {addonsData.map(addon => {
                                         const isSelected = selectedAddonsLocal.includes(addon.id);
+                                        // benerin error syntax map
+                                        // pasang warna tema asli
                                         return (
-                                            {/* hapus slate tailwind */}
                                             <div 
                                                 key={addon.id}
                                                 onClick={() => handleToggleAddon(addon.id)}
