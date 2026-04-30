@@ -311,6 +311,7 @@ export default function KatalogPage() {
                                     })}
                                 </div>
 
+                                {/* kasih jarak antara list addon sama tombol biar ga nempel */}
                                 <button
                                     onClick={handleConfirmAddToCart}
                                     style={{
@@ -327,9 +328,10 @@ export default function KatalogPage() {
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        gap: "0.5rem"
+                                        gap: "0.5rem",
+                                        marginTop: "1.5rem"
                                     }}
-                                    className="w-full mt-4 hover:brightness-110"
+                                    className="w-full hover:brightness-110"
                                 >
                                     Masukkan ke Keranjang
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
