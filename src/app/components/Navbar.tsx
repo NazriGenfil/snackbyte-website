@@ -5,6 +5,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/useCartStore";
 
 const IconSearch = () => (
@@ -29,6 +30,7 @@ const IconCart = () => (
   </svg>
 );
 
+// tombol hamburger — switch otomatis ke X pas menu kebuka
 const IconBurger = ({ isOpen }: { isOpen: boolean }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
     fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -50,6 +52,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  // sembunyiin menu desktop pas di HP, pake state buat toggle
   const [mobileOpen, setMobileOpen] = useState(false);
   const cartStore = useCartStore((state) => state.cart);
   const [mounted, setMounted] = useState(false);
@@ -63,11 +66,11 @@ export default function Navbar() {
   }, [cartStore]);
 
   return (
-    <header style={{ width: '100%', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #1e2a3a', backgroundColor: 'rgba(13, 17, 23, 0.9)', backdropFilter: 'blur(10px)', position: 'sticky', top: 0, zIndex: 100 }}>
+    <header style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', borderBottom: '1px solid #1e2a3a', backgroundColor: 'rgba(13, 17, 23, 0.9)', backdropFilter: 'blur(10px)', position: 'sticky', top: 0, zIndex: 100 }}>
 
       {/* ─── Main Bar ─── */}
       {/* batesin lebar biar gak bablas ke samping */}
-      <div style={{ width: '100%', maxWidth: '1440px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4rem' }}>
+      <div style={{ width: '100%', maxWidth: '1440px', height: '80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4rem' }}>
 
         {/* ── Kiri: Logo ── */}
         <Link href="/" id="nav-logo" style={{ flexShrink: 0, textDecoration: "none", fontSize: '1.5rem', fontWeight: '800' }}
@@ -76,7 +79,7 @@ export default function Navbar() {
           <span className="text-[#F9A826]">Byte</span>
         </Link>
 
-        {/* ── Tengah: Nav Links — kasih gap gede biar gak dempetan kaya angkot ── */}
+        {/* ── Tengah: Nav Links — sembunyiin pas di HP, kasih gap gede biar gak dempetan kaya angkot ── */}
         <nav
           id="nav-desktop"
           aria-label="Navigasi utama"
@@ -127,7 +130,7 @@ export default function Navbar() {
             }}>{mounted ? cartCount : 0}</span>
           </Link>
 
-          {/* burger — handle menu buat HP */}
+          {/* tombol hamburger buat toggle — cuma keliatan di HP */}
           <button
             id="nav-burger"
             aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
@@ -142,26 +145,37 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ─── Mobile Dropdown ─── */}
-      {mobileOpen && (
-        <nav id="mobile-menu" aria-label="Navigasi mobile" style={{
-          borderTop: "1px solid #1e2a3a",
-          backgroundColor: "rgba(13, 17, 23, 0.97)",
-          padding: "0.75rem 1rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "4px",
-        }}>
-          {navLinks.map((link) => (
-            <Link key={link.label} href={link.href}
-              onClick={() => setMobileOpen(false)}
-              {...(link.label === "Kontak Kami" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="block px-3 py-2.5 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+      {/* ─── Mobile Dropdown — animasi slide-down biar premium ─── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.nav
+            id="mobile-menu"
+            aria-label="Navigasi mobile"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{
+              width: "100%",
+              overflow: "hidden",
+              borderTop: "1px solid #1e2a3a",
+              backgroundColor: "rgba(13, 17, 23, 0.97)",
+            }}
+          >
+            <div style={{ padding: "0.75rem 1.5rem", display: "flex", flexDirection: "column", gap: "4px" }}>
+              {navLinks.map((link) => (
+                // tutup menu otomatis pas link diklik
+                <Link key={link.label} href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  {...(link.label === "Kontak Kami" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="block px-3 py-2.5 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
     </header>
   );
