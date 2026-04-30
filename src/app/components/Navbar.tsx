@@ -44,9 +44,9 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Katalog", href: "/katalog" },
   { label: "Kustomisasi", href: "/kustomisasi" },
-  { label: "Tentang Kami", href: "/tentang-kami" },
+  // { label: "Tentang Kami", href: "/tentang-kami" },
   // tombol kontak langsung nembak ke wa biar admin gercep 
-  { label: "Kontak Kami", href: "https://wa.me/6285715999325?text=Halo%20SnackByte!%20Saya%20mau%20tanya-tanya%20nih." },
+  { label: "Kontak Kami", href: "https://wa.me/6283161858766?text=Halo%20SnackByte!%20Saya%20mau%20tanya-tanya%20nih." },
 ];
 
 export default function Navbar() {

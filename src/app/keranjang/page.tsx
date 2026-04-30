@@ -21,7 +21,7 @@ export default function KeranjangPage() {
 
     // gas ke whatsapp buat jualan
     const handleCheckout = () => {
-        const phone = "6285715999325";
+        const phone = "6283161858766";
         let text = "Halo SnackByte! Saya mau pesan:\n\nItems:\n";
         cart.forEach(item => {
             text += `- ${item.quantity}x ${item.name} (${formatRupiah(item.price * item.quantity)})\n`;
@@ -31,7 +31,7 @@ export default function KeranjangPage() {
             // masukin semua tambahan ke rangkuman WA
             text += `\nTambahan (Kustomisasi):\n`;
             selectedAddons.forEach(addon => {
-                text += `- ${addon.quantity}x ${addon.name} (${formatRupiah(addon.price * addon.quantity)}\n`;
+                text += `- ${addon.quantity}x ${addon.name} (${formatRupiah(addon.price * addon.quantity)})\n`;
             });
         }
 

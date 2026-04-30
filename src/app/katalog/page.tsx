@@ -25,7 +25,7 @@ export default function KatalogPage() {
 
     // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
     const handleQuickBuy = (product: Product) => {
-        const phone = "6281234567890";
+        const phone = "6283161858766";
         const text = `Halo SnackByte! Saya mau pesan ${product.name} langsung nih. Harganya ${formatRupiah(product.price)} kan? Mohon info pembayarannya ya!`;
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
     };
@@ -37,7 +37,7 @@ export default function KatalogPage() {
                 {/* Header */}
                 {/* Header */}
                 {/* notif header nongol dari atas cepet */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: -40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
@@ -77,7 +77,7 @@ export default function KatalogPage() {
                 </div>
 
                 {/* Product Grid */}
-                <motion.div 
+                <motion.div
                     variants={{ visible: { opacity: 1, transition: { staggerChildren: 0.15 } }, hidden: { opacity: 0 } }}
                     initial="hidden"
                     animate="visible"
@@ -86,8 +86,8 @@ export default function KatalogPage() {
                     {/* pasang logic staggered biar produk muncul satu-satu gantian */}
                     {filteredProducts.map(product => (
                         // UI kartu produk sesuai figma
-                        <motion.div 
-                            key={product.id} 
+                        <motion.div
+                            key={product.id}
                             variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
                             transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
                             style={{
