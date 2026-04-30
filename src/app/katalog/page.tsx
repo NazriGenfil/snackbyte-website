@@ -1,20 +1,49 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useState } from "react";
 import { useCartStore, Product } from "@/store/useCartStore";
 import { useNotificationStore } from "@/store/useNotificationStore";
 // import langsung aja biar gak drama fetch error 404
 import productsData from "@/data/products.json";
+import addonsData from "@/data/addons.json";
 
 export default function KatalogPage() {
     // pastiin data produk sinkron sama UI
     const [products] = useState<Product[]>(productsData as Product[]);
     const [filter, setFilter] = useState("Semua");
     const addToCart = useCartStore(state => state.addToCart);
+    const updateAddonQuantity = useCartStore(state => state.updateAddonQuantity);
     const addNotification = useNotificationStore(state => state.addNotification);
+
+    const [isAddonModalOpen, setIsAddonModalOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [selectedAddonsLocal, setSelectedAddonsLocal] = useState<string[]>([]);
+
+    const handleToggleAddon = (id: string) => {
+        setSelectedAddonsLocal(prev => 
+            prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+        );
+    };
+
+    const handleConfirmAddToCart = () => {
+        if (selectedProduct) {
+            addToCart(selectedProduct);
+            // masukin addon ke keranjang
+            selectedAddonsLocal.forEach(addonId => {
+                const addon = addonsData.find(a => a.id === addonId);
+                if (addon) {
+                    updateAddonQuantity(addon, 1);
+                }
+            });
+            addNotification(`${selectedProduct.name} ditambahkan!`);
+            setIsAddonModalOpen(false);
+            setSelectedProduct(null);
+            setSelectedAddonsLocal([]);
+        }
+    };
 
     // filter data biar user gak pusing nyari
     const filteredProducts = products.filter(p => filter === "Semua" ? true : p.category === filter);
@@ -160,12 +189,11 @@ export default function KatalogPage() {
                                             Beli
                                         </button>
                                         <button
-                                            // tambah ke cart zustand dengan icon juga
+                                            // bikin popup addon pas klik beli
                                             onClick={() => {
-                                                addToCart(product);
-                                                addNotification(`${product.name} ditambahkan!`);
-                                                // trigger dua kali biar efek tumpuknya langsung kelihatan estetik
-                                                // setTimeout(() => addNotification(`Jangan lupa checkout di keranjang ya!`), 100);
+                                                setSelectedProduct(product);
+                                                setSelectedAddonsLocal([]);
+                                                setIsAddonModalOpen(true);
                                             }}
                                             style={{
                                                 backgroundColor: "#00CFFF",
@@ -195,6 +223,133 @@ export default function KatalogPage() {
                         </motion.div>
                     ))}
                 </motion.div>
+
+                {/* Add-on Modal */}
+                <AnimatePresence>
+                    {isAddonModalOpen && selectedProduct && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            style={{
+                                position: "fixed",
+                                inset: 0,
+                                zIndex: 1000,
+                                backgroundColor: "rgba(13, 17, 23, 0.8)",
+                                backdropFilter: "blur(4px)",
+                                display: "flex",
+                                alignItems: "flex-end",
+                                justifyContent: "center"
+                            }}
+                            onClick={() => setIsAddonModalOpen(false)}
+                        >
+                            <motion.div
+                                initial={{ y: "100%" }}
+                                animate={{ y: 0 }}
+                                exit={{ y: "100%" }}
+                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                onClick={(e) => e.stopPropagation()}
+                                style={{
+                                    backgroundColor: "#161b22",
+                                    width: "100%",
+                                    maxWidth: "500px",
+                                    borderTopLeftRadius: "1.5rem",
+                                    borderTopRightRadius: "1.5rem",
+                                    border: "1px solid #30363d",
+                                    borderBottom: "none",
+                                    padding: "2rem",
+                                    boxShadow: "0 -10px 40px rgba(0,0,0,0.5)"
+                                }}
+                            >
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                                    <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
+                                    <button 
+                                        onClick={() => setIsAddonModalOpen(false)}
+                                        style={{ background: "none", border: "none", color: "#94a3b8", cursor: "pointer", fontSize: "1.5rem" }}
+                                    >
+                                        &times;
+                                    </button>
+                                </div>
+                                
+                                <p style={{ color: "#94a3b8", marginBottom: "1.5rem" }}>
+                                    Pilih tambahan untuk <strong style={{ color: "#00CFFF" }}>{selectedProduct.name}</strong> kamu:
+                                </p>
+
+                                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
+                                    {addonsData.map(addon => {
+                                        const isSelected = selectedAddonsLocal.includes(addon.id);
+                                        return (
+                                            <div 
+                                                key={addon.id}
+                                                onClick={() => handleToggleAddon(addon.id)}
+                                                style={{
+                                                    display: "flex",
+                                                    justifyContent: "space-between",
+                                                    alignItems: "center",
+                                                    padding: "1rem",
+                                                    borderRadius: "0.75rem",
+                                                    border: isSelected ? "2px solid #00CFFF" : "2px solid #30363d",
+                                                    backgroundColor: isSelected ? "rgba(0,207,255,0.1)" : "transparent",
+                                                    cursor: "pointer",
+                                                    transition: "all 0.2s"
+                                                }}
+                                            >
+                                                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                                                    <div style={{
+                                                        width: "20px",
+                                                        height: "20px",
+                                                        borderRadius: "4px",
+                                                        border: isSelected ? "none" : "2px solid #64748b",
+                                                        backgroundColor: isSelected ? "#00CFFF" : "transparent",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center"
+                                                    }}>
+                                                        {isSelected && (
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D1117" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                                <polyline points="20 6 9 17 4 12" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                    <span style={{ color: "#f8fafc", fontWeight: 500 }}>{addon.name}</span>
+                                                </div>
+                                                <span style={{ color: "#F9A826", fontWeight: 700 }}>
+                                                    {addon.price > 0 ? `+${formatRupiah(addon.price)}` : "Gratis"}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                <button
+                                    onClick={handleConfirmAddToCart}
+                                    style={{
+                                        width: "100%",
+                                        padding: "1rem",
+                                        borderRadius: "99px",
+                                        backgroundColor: "#00CFFF",
+                                        color: "#0D1117",
+                                        fontWeight: 700,
+                                        fontSize: "1.1rem",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        transition: "filter 0.2s",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        gap: "0.5rem"
+                                    }}
+                                    className="hover:brightness-110"
+                                >
+                                    Masukkan ke Keranjang
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
             </div>
         </main>
