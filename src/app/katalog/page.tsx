@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 import { useCartStore, Product } from "@/store/useCartStore";
@@ -18,14 +19,33 @@ export default function KatalogPage() {
     const updateAddonQuantity = useCartStore(state => state.updateAddonQuantity);
     const addNotification = useNotificationStore(state => state.addNotification);
 
+    const router = useRouter();
     const [isAddonModalOpen, setIsAddonModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [selectedAddonsLocal, setSelectedAddonsLocal] = useState<string[]>([]);
+    const [modalIntent, setModalIntent] = useState<'cart' | 'buy_now'>('cart');
 
     const handleToggleAddon = (id: string) => {
         setSelectedAddonsLocal(prev => 
             prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
         );
+    };
+
+    const handleProductAction = (product: Product, intent: 'cart' | 'buy_now') => {
+        // cek minuman skip addon
+        if (product.category !== "Makanan") {
+            addToCart(product);
+            addNotification(`${product.name} ditambahkan!`);
+            if (intent === 'buy_now') {
+                router.push("/keranjang");
+            }
+        } else {
+            // simpen intent beli langsung
+            setSelectedProduct(product);
+            setSelectedAddonsLocal([]);
+            setModalIntent(intent);
+            setIsAddonModalOpen(true);
+        }
     };
 
     const handleConfirmAddToCart = () => {
@@ -42,6 +62,10 @@ export default function KatalogPage() {
             setIsAddonModalOpen(false);
             setSelectedProduct(null);
             setSelectedAddonsLocal([]);
+
+            if (modalIntent === 'buy_now') {
+                router.push("/keranjang");
+            }
         }
     };
 
@@ -50,13 +74,6 @@ export default function KatalogPage() {
 
     const formatRupiah = (price: number) => {
         return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(price);
-    };
-
-    // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
-    const handleQuickBuy = (product: Product) => {
-        const phone = "6283161858766";
-        const text = `Halo SnackByte! Saya mau pesan ${product.name} langsung nih. Harganya ${formatRupiah(product.price)} kan? Mohon info pembayarannya ya!`;
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
     };
 
     return (
@@ -171,8 +188,7 @@ export default function KatalogPage() {
 
                                     <div style={{ display: "flex", gap: "0.75rem" }}>
                                         <button
-                                            // tombol gaspol langsung ke wa, biar user gak ribet masuk keranjang dulu
-                                            onClick={() => handleQuickBuy(product)}
+                                            onClick={() => handleProductAction(product, 'buy_now')}
                                             style={{
                                                 flex: 1,
                                                 backgroundColor: "#F9A826",
@@ -189,12 +205,7 @@ export default function KatalogPage() {
                                             Beli
                                         </button>
                                         <button
-                                            // bikin popup addon pas klik beli
-                                            onClick={() => {
-                                                setSelectedProduct(product);
-                                                setSelectedAddonsLocal([]);
-                                                setIsAddonModalOpen(true);
-                                            }}
+                                            onClick={() => handleProductAction(product, 'cart')}
                                             style={{
                                                 backgroundColor: "#00CFFF",
                                                 color: "#0D1117",
@@ -231,35 +242,17 @@ export default function KatalogPage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            style={{
-                                position: "fixed",
-                                inset: 0,
-                                zIndex: 1000,
-                                backgroundColor: "rgba(13, 17, 23, 0.8)",
-                                backdropFilter: "blur(4px)",
-                                display: "flex",
-                                alignItems: "flex-end",
-                                justifyContent: "center"
-                            }}
+                            // modal di tengah layar
+                            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
                             onClick={() => setIsAddonModalOpen(false)}
                         >
                             <motion.div
-                                initial={{ y: "100%" }}
-                                animate={{ y: 0 }}
-                                exit={{ y: "100%" }}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                                 onClick={(e) => e.stopPropagation()}
-                                style={{
-                                    backgroundColor: "#161b22",
-                                    width: "100%",
-                                    maxWidth: "500px",
-                                    borderTopLeftRadius: "1.5rem",
-                                    borderTopRightRadius: "1.5rem",
-                                    border: "1px solid #30363d",
-                                    borderBottom: "none",
-                                    padding: "2rem",
-                                    boxShadow: "0 -10px 40px rgba(0,0,0,0.5)"
-                                }}
+                                className="w-full max-w-md bg-[#161b22] rounded-2xl p-6 border border-slate-800 shadow-2xl relative"
                             >
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#f8fafc" }}>Tambah Kustomisasi</h2>
