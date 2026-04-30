@@ -8,19 +8,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/useCartStore";
 
-const IconSearch = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-  </svg>
-);
-
-const IconUser = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-  </svg>
-);
 
 const IconCart = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -70,8 +57,8 @@ export default function Navbar() {
 
       {/* ─── Main Bar ─── */}
       {/* batesin lebar biar gak bablas ke samping */}
-      {/* padding dikecilin pas di HP biar gak luber */}
-      <div className="w-full max-w-[1440px] h-[80px] flex justify-between items-center px-4 md:px-16">
+      {/* benerin padding biar gak mepet kanan */}
+      <div className="w-full max-w-[1440px] h-[80px] flex justify-between items-center px-6 lg:px-16">
 
         {/* ── Kiri: Logo ── */}
         <Link href="/" id="nav-logo" style={{ flexShrink: 0, textDecoration: "none", fontSize: '1.5rem', fontWeight: '800' }}
@@ -84,8 +71,8 @@ export default function Navbar() {
         <nav
           id="nav-desktop"
           aria-label="Navigasi utama"
-          // pindahin inline style ke tailwind biar beneran responsif
-          className="hidden md:flex items-center gap-10"
+          // pindah breakpoint ke lg biar ipad pake burger menu
+          className="hidden lg:flex items-center gap-10"
         >
           {navLinks.map((link) => (
             <Link
@@ -107,17 +94,8 @@ export default function Navbar() {
         </nav>
 
         {/* ── Kanan: Icons + Burger ── */}
-        <div className="flex items-center gap-3 md:gap-8 shrink-0">
-
-          <button id="nav-search" aria-label="Cari produk"
-            className="p-2 rounded-lg text-slate-400 hover:text-[#00CFFF] hover:bg-[#00CFFF]/10 transition-colors">
-            <IconSearch />
-          </button>
-
-          <button id="nav-user" aria-label="Akun pengguna"
-            className="p-2 rounded-lg text-slate-400 hover:text-[#F9A826] hover:bg-[#F9A826]/10 transition-colors">
-            <IconUser />
-          </button>
+        {/* hapus icon search & user, sisa keranjang sm burger */}
+        <div className="flex items-center gap-2 lg:gap-6 shrink-0">
 
           {/* taro angka keranjang di pojok biar gak tumpuk */}
           {/* stop kursor gemeteran pas hover keranjang */}
@@ -138,7 +116,7 @@ export default function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileOpen((p) => !p)}
-            className="md:hidden ml-1 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
           >
             <IconBurger isOpen={mobileOpen} />
           </button>
