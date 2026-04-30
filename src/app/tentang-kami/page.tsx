@@ -7,7 +7,7 @@ import aboutData from "@/data/about.json";
 
 export default function TentangKamiPage() {
     const { history, values, timeline } = aboutData;
-    
+
     // buat slideshow otomatis biar makin keren
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -25,11 +25,11 @@ export default function TentangKamiPage() {
     return (
         <main style={{ minHeight: "100vh", padding: "80px 2rem", flex: 1, backgroundColor: "#0D1117" }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6rem" }}>
-                
+
                 {/* 1. Header Section */}
                 {/* 1. Header Section */}
                 {/* judul tentang kami nongol cepet dari atas */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: -40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
@@ -46,7 +46,7 @@ export default function TentangKamiPage() {
                 {/* 2. History Section (Flexbox 2 Columns) */}
                 <section style={{ display: "flex", flexWrap: "wrap", gap: "4rem", alignItems: "center" }}>
                     {/* teks sejarah Nongol alus dari kiri kayak homepage */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: -60 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: [0.175, 0.885, 0.32, 1.275] }}
@@ -59,18 +59,18 @@ export default function TentangKamiPage() {
                             {history.content}
                         </div>
                     </motion.div>
-                    
+
                     {/* Slideshow Component */}
                     {/* foto fade-in belakangan biar dramatis */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.4 }}
-                        style={{ 
-                            flex: "1 1 500px", 
-                            position: "relative", 
-                            height: "400px", 
-                            borderRadius: "2rem", 
+                        style={{
+                            flex: "1 1 500px",
+                            position: "relative",
+                            height: "400px",
+                            borderRadius: "2rem",
                             overflow: "hidden",
                             boxShadow: "0 0 40px rgba(0, 207, 255, 0.15)",
                             border: "1px solid #1e2a3a"
@@ -103,7 +103,7 @@ export default function TentangKamiPage() {
 
                 {/* 3. Values Section */}
                 {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
-                <motion.section 
+                <motion.section
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
@@ -113,7 +113,7 @@ export default function TentangKamiPage() {
                     <h2 style={{ fontSize: "2.5rem", fontWeight: 800, textAlign: "center", margin: 0, color: "#f8fafc" }}>
                         Nilai-Nilai Kami
                     </h2>
-                    <motion.div 
+                    <motion.div
                         variants={{ visible: { transition: { staggerChildren: 0.15 } }, hidden: {} }}
                         initial="hidden"
                         whileInView="visible"
@@ -121,21 +121,21 @@ export default function TentangKamiPage() {
                         style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}
                     >
                         {values.map(val => (
-                            <motion.div 
-                                key={val.id} 
+                            <motion.div
+                                key={val.id}
                                 variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
                                 transition={{ duration: 0.6 }}
-                                style={{ 
-                                    backgroundColor: "#161b22", 
+                                style={{
+                                    backgroundColor: "#161b22",
                                     border: `1px solid ${val.color}40`,
                                     borderTop: `4px solid ${val.color}`,
-                                    borderRadius: "1rem", 
+                                    borderRadius: "1rem",
                                     padding: "2rem",
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: "1rem",
                                     transition: "transform 0.3s ease"
-                                }} 
+                                }}
                                 className="hover:-translate-y-2"
                             >
                                 <span style={{ fontSize: "3rem" }}>{val.icon}</span>
@@ -148,12 +148,12 @@ export default function TentangKamiPage() {
 
                 {/* 4. Mission Banner */}
                 {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
-                <motion.section 
+                <motion.section
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    style={{ 
+                    style={{
                         background: "linear-gradient(135deg, #00CFFF 0%, #F9A826 100%)",
                         borderRadius: "2rem",
                         padding: "4rem 2rem",
@@ -190,7 +190,7 @@ export default function TentangKamiPage() {
                 {/* 5. Timeline Section */}
                 {/* rapihin timeline perjalanan snackbyte */}
                 {/* bagian bawah reveal-on-scroll gantian nongol dari bawah */}
-                <motion.section 
+                <motion.section
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
@@ -200,8 +200,8 @@ export default function TentangKamiPage() {
                     <h2 style={{ fontSize: "2.5rem", fontWeight: 800, margin: 0, color: "#f8fafc" }}>
                         Perjalanan Kami
                     </h2>
-                    
-                    <motion.div 
+
+                    <motion.div
                         variants={{ visible: { transition: { staggerChildren: 0.15 } }, hidden: {} }}
                         initial="hidden"
                         whileInView="visible"
@@ -212,23 +212,23 @@ export default function TentangKamiPage() {
                         <div style={{ position: "absolute", left: "40px", top: "0", bottom: "0", width: "2px", backgroundColor: "#30363d", zIndex: 0 }} className="hidden sm:block"></div>
 
                         {timeline.map((item, index) => (
-                            <motion.div 
-                                key={index} 
+                            <motion.div
+                                key={index}
                                 variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
                                 transition={{ duration: 0.6 }}
-                                style={{ display: "flex", gap: "2rem", alignItems: "flex-start", position: "relative", zIndex: 1 }} 
+                                style={{ display: "flex", gap: "2rem", alignItems: "flex-start", position: "relative", zIndex: 1 }}
                                 className="flex-col sm:flex-row"
                             >
-                                
+
                                 {/* Bulatan Tahun */}
-                                <div style={{ 
-                                    width: "80px", 
-                                    height: "80px", 
-                                    borderRadius: "50%", 
-                                    backgroundColor: "#161b22", 
+                                <div style={{
+                                    width: "80px",
+                                    height: "80px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "#161b22",
                                     border: `2px solid ${item.color}`,
-                                    display: "flex", 
-                                    alignItems: "center", 
+                                    display: "flex",
+                                    alignItems: "center",
                                     justifyContent: "center",
                                     flexShrink: 0,
                                     boxShadow: `0 0 20px ${item.color}30`
@@ -237,13 +237,13 @@ export default function TentangKamiPage() {
                                         {item.year}
                                     </span>
                                 </div>
-                                
+
                                 {/* Konten Card */}
-                                <div style={{ 
-                                    flex: 1, 
-                                    backgroundColor: "#161b22", 
-                                    padding: "2rem", 
-                                    borderRadius: "1.5rem", 
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: "#161b22",
+                                    padding: "2rem",
+                                    borderRadius: "1.5rem",
                                     border: "1px solid #30363d",
                                     borderLeft: `4px solid ${item.color}`
                                 }}>

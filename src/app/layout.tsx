@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/images/icon.ico",
-    shortcut: "/images/icon.ico",
+    icon: "/images/maskot.ico",
+    shortcut: "/images/maskot.ico",
     // apple: "/images/icon.ico", //jaga jaga kalo ada icon khususu untuk apple
   },
 };
