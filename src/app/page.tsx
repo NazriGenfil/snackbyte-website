@@ -117,7 +117,7 @@ function HeroSection() {
             {/* Primary — solid cyan */}
             <Link
               id="hero-cta-katalog"
-              href="#katalog"
+              href="/katalog"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
                 backgroundColor: "#00CFFF", color: "#0D1117",
@@ -293,7 +293,7 @@ function CTABanner() {
         Pilih snack favoritmu sekarang dan checkout langsung via WhatsApp. Gak ribet, langsung diproses!
       </p>
 
-      <Link href="#katalog" style={{ backgroundColor: '#0D1117', color: 'white', padding: '12px 32px', borderRadius: '99px', fontWeight: '600', border: 'none', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+      <Link href="/katalog" style={{ backgroundColor: '#0D1117', color: 'white', padding: '12px 32px', borderRadius: '99px', fontWeight: '600', border: 'none', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
         Mulai Belanja
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />
