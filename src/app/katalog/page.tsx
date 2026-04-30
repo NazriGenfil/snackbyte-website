@@ -269,26 +269,18 @@ export default function KatalogPage() {
                                     Pilih tambahan untuk <strong style={{ color: "#00CFFF" }}>{selectedProduct.name}</strong> kamu:
                                 </p>
 
-                                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
+                                {/* ubah list ke grid card biar ga kopong */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 mb-4">
                                     {addonsData.map(addon => {
                                         const isSelected = selectedAddonsLocal.includes(addon.id);
                                         return (
+                                            /* card bisa diklik semua biar UX enak */
                                             <div 
                                                 key={addon.id}
                                                 onClick={() => handleToggleAddon(addon.id)}
-                                                style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    padding: "1rem",
-                                                    borderRadius: "0.75rem",
-                                                    border: isSelected ? "2px solid #00CFFF" : "2px solid #30363d",
-                                                    backgroundColor: isSelected ? "rgba(0,207,255,0.1)" : "transparent",
-                                                    cursor: "pointer",
-                                                    transition: "all 0.2s"
-                                                }}
+                                                className={`relative flex flex-col justify-between p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected ? 'border-[#00CFFF] bg-[#00CFFF]/10' : 'border-slate-800 bg-[#0D1117] hover:border-slate-600'}`}
                                             >
-                                                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                                                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                                                     <div style={{
                                                         width: "20px",
                                                         height: "20px",
@@ -297,7 +289,8 @@ export default function KatalogPage() {
                                                         backgroundColor: isSelected ? "#00CFFF" : "transparent",
                                                         display: "flex",
                                                         alignItems: "center",
-                                                        justifyContent: "center"
+                                                        justifyContent: "center",
+                                                        flexShrink: 0
                                                     }}>
                                                         {isSelected && (
                                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D1117" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -307,9 +300,9 @@ export default function KatalogPage() {
                                                     </div>
                                                     <span style={{ color: "#f8fafc", fontWeight: 500 }}>{addon.name}</span>
                                                 </div>
-                                                <span style={{ color: "#F9A826", fontWeight: 700 }}>
+                                                <div className="text-[#F9A826] font-semibold mt-3">
                                                     {addon.price > 0 ? `+${formatRupiah(addon.price)}` : "Gratis"}
-                                                </span>
+                                                </div>
                                             </div>
                                         );
                                     })}
