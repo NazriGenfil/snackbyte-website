@@ -1,18 +1,58 @@
 [
     {
         "id": 1,
-        "name": "Tahu Walik",
+        "name": "Tahu Walik Chili Oil",
         "category": "Makanan",
         "price": 10000,
         "image": "/images/tahu1.webp",
-        "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam."
+        "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Perpaduan sambal chili oil yang pedas, gurih, dan bikin nagih."
     },
     {
         "id": 2,
+        "name": "Tahu Walik Kecombrang",
+        "category": "Makanan",
+        "price": 10000,
+        "image": "/images/tahu1.webp",
+        "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Perpaduan aroma dan rasa khas kecombrang yang gurih, unik, dan pastinya bikin nagih."
+    },
+    {
+        "id": 3,
+        "name": "[Frozen] Tahu Walik Kecombrang",
+        "category": "Makanan",
+        "price": 10000,
+        "image": "/images/tahu1.webp",
+        "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Sudah di bekukan siap untuk di goreng."
+    },
+    {
+        "id": 4,
+        "name": "[Frozen] Tahu Walik Chili Oil",
+        "category": "Makanan",
+        "price": 10000,
+        "image": "/images/tahu1.webp",
+        "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Sudah di bekukan siap untuk di goreng."
+    },
+    {
+        "id": 5,
         "name": "Soda Gembira",
         "category": "Minuman",
         "price": 8000,
         "image": "/images/sodagembira1.webp",
         "description": "Minuman soda segar dengan campuran susu yang menyegarkan, cocok menemani cemilan."
+    },
+    {
+        "id": 6,
+        "name": "Bundling 1",
+        "category": "Makanan",
+        "price": 15000,
+        "image": "/images/tahu2.webp",
+        "description": "Tahu Walik Saus Kecombrang + soda Gembira."
+    },
+    {
+        "id": 7,
+        "name": "Bundling 2",
+        "category": "Makanan",
+        "price": 15000,
+        "image": "/images/tahu2.webp",
+        "description": "Tahu Walik Chili Oil + soda Gembira."
     }
 ]
