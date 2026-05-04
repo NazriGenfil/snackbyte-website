@@ -33,14 +33,6 @@
     },
     {
         "id": 5,
-        "name": "Soda Gembira",
-        "category": "Minuman",
-        "price": 8000,
-        "image": "/images/sodagembira1.webp",
-        "description": "Minuman soda segar dengan campuran susu yang menyegarkan, cocok menemani cemilan."
-    },
-    {
-        "id": 6,
         "name": "Bundling 1",
         "category": "Makanan",
         "price": 15000,
@@ -48,11 +40,19 @@
         "description": "Tahu Walik Saus Kecombrang + soda Gembira."
     },
     {
-        "id": 7,
+        "id": 6,
         "name": "Bundling 2",
         "category": "Makanan",
         "price": 15000,
         "image": "/images/tahu2.webp",
         "description": "Tahu Walik Chili Oil + soda Gembira."
-    }
+    },
+    {
+        "id": 7,
+        "name": "Soda Gembira",
+        "category": "Minuman",
+        "price": 8000,
+        "image": "/images/sodagembira1.webp",
+        "description": "Minuman soda segar dengan campuran susu yang menyegarkan, cocok menemani cemilan."
+    },
 ]
