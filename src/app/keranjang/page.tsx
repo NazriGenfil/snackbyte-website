@@ -61,6 +61,9 @@ export default function KeranjangPage() {
         text += `(Bukti bayar terlampir)`;
 
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+        
+        // kosongin keranjang pas dilempar ke WA
+        clearCart();
         setIsCheckoutModalOpen(false);
     };
 
@@ -364,6 +367,11 @@ export default function KeranjangPage() {
                                         style={{ objectFit: "contain", borderRadius: "0.25rem" }}
                                     />
                                 </div>
+
+                                {/* kasih teks peringatan screenshot */}
+                                <p style={{ color: "#f87171", fontSize: "0.875rem", textAlign: "center", marginTop: "0.75rem", fontWeight: 500 }}>
+                                    * Pastikan Anda men-screenshot bukti transfer sebelum klik tombol di bawah.
+                                </p>
 
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid #30363d" }}>
                                     <span style={{ color: "#94a3b8" }}>Total Bayar</span>
