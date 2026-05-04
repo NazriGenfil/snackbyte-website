@@ -15,6 +15,7 @@ export default function KeranjangPage() {
     const [customerName, setCustomerName] = useState("");
     const [customerPhone, setCustomerPhone] = useState("");
     const [orderType, setOrderType] = useState("Ambil di Market Day");
+    const [customerNotes, setCustomerNotes] = useState(""); // state buat catatan pembeli
 
     useEffect(() => {
         // benerin hydration biar gak error pas render
@@ -55,6 +56,8 @@ export default function KeranjangPage() {
 
         const grandTotal = getTotalPrice() + getTotalAddonPrice();
         text += `\nTotal: ${formatRupiah(grandTotal)}\n`;
+        // masukin ke format WA
+        text += `Catatan: ${customerNotes || '-'}\n\n`;
         text += `(Bukti bayar terlampir)`;
 
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
@@ -324,6 +327,18 @@ export default function KeranjangPage() {
                                         onChange={(e) => setCustomerPhone(e.target.value)}
                                         placeholder="08..."
                                         style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white" }}
+                                    />
+                                </div>
+
+                                {/* tambahin kolom text buat catatan */}
+                                <div>
+                                    <label style={{ display: "block", marginBottom: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>Catatan (Opsional)</label>
+                                    <textarea
+                                        value={customerNotes}
+                                        onChange={(e) => setCustomerNotes(e.target.value)}
+                                        placeholder="Contoh: Pedes banget, bumbu dipisah..."
+                                        rows={2}
+                                        style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #30363d", backgroundColor: "#0D1117", color: "white", resize: "vertical" }}
                                     />
                                 </div>
 
