@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function NotificationToast() {
     const notifications = useNotificationStore(state => state.notifications);
+    const removeNotification = useNotificationStore(state => state.removeNotification); // fungsi buat hapus notif by id
     const [isHovered, setIsHovered] = useState(false);
 
     // notif numpuk estetik kaya figma
@@ -83,13 +84,24 @@ export default function NotificationToast() {
                                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                                 </svg>
-                                <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "2px", flex: 1 }}>
                                     <span style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.2 }}>Sukses!</span>
                                     {/* kasih waktu lebih lama biar user bisa baca */}
                                     <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "#dcfce3", lineHeight: 1.2 }}>
                                         {notif.message}
                                     </span>
                                 </div>
+                                {/* tambahin tombol silang biar user bisa close manual */}
+                                <button 
+                                    onClick={() => removeNotification(notif.id)}
+                                    className="text-green-100 hover:text-white transition-colors"
+                                    aria-label="Close notification"
+                                    style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </motion.div>
                         );
                     })}
