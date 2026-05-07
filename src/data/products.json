@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Tahu Walik Chili Oil",
         "category": "Makanan",
-        "price": 10000,
+        "price": 13000,
         "image": "/images/tahu1.webp",
         "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Perpaduan sambal chili oil yang pedas, gurih, dan bikin nagih."
     },
@@ -19,7 +19,7 @@
         "id": 3,
         "name": "[Frozen] Tahu Walik Kecombrang",
         "category": "Makanan",
-        "price": 10000,
+        "price": 15000,
         "image": "/images/tahu1.webp",
         "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Sudah di bekukan siap untuk di goreng."
     },
@@ -27,7 +27,7 @@
         "id": 4,
         "name": "[Frozen] Tahu Walik Chili Oil",
         "category": "Makanan",
-        "price": 10000,
+        "price": 15000,
         "image": "/images/tahu1.webp",
         "description": "Tahu walik khas Banyuwangi dengan tekstur renyah di luar, lembut dan kenyal di dalam. Sudah di bekukan siap untuk di goreng."
     },
